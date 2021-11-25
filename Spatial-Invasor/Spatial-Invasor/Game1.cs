@@ -9,6 +9,8 @@ namespace Spatial_Invasor
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private Texture2D player;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -27,7 +29,8 @@ namespace Spatial_Invasor
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            player = Content.Load<Texture2D>("main_spritesheet");
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -44,7 +47,9 @@ namespace Spatial_Invasor
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(player, new Rectangle(206, 22, 49, 49), Color.White);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
