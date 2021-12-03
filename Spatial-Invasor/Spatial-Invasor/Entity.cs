@@ -12,19 +12,19 @@ namespace Spatial_Invasor
         public List<Rectangle> sheetPositions;
         
         public float speed;
-        public Vector2 _position;
+        public Vector2 Position;
 
-        public SpriteBatch _spriteBatch;
-        public GraphicsDeviceManager _graphics;
-        public Texture2D _spriteSheet;
+        public SpriteBatch spriteBatch;
+        public GraphicsDeviceManager Graphics;
+        public Texture2D SpriteSheet;
 
         
         public Entity(GraphicsDeviceManager Graphics, SpriteBatch SpriteBatch, Vector2 Position, Texture2D Spritesheet)
         {
-            _graphics = Graphics;
-            _spriteBatch = SpriteBatch;
-            _position = Position;
-            _spriteSheet = Spritesheet;
+            this.Graphics = Graphics;
+            spriteBatch = SpriteBatch;
+            this.Position = Position;
+            SpriteSheet = Spritesheet;
         }
         
 

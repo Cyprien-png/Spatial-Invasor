@@ -9,22 +9,17 @@ namespace Spatial_Invasor
 {
     public class Player : Entity
     {
-        public List<Rectangle> spriteSheetPosition = new List<Rectangle>()
+        public List<Rectangle> SpriteSheetPosition = new List<Rectangle>()
         {
             new Rectangle(152, 1, 21, 21)
         };
 
-        private float[] Limits = { 250, 700 };
+        public float[] Limits = { 250, 700 };
 
 
         public Player(GraphicsDeviceManager Graphics, SpriteBatch SpriteBatch, Vector2 Position, Texture2D Spritesheet) : base(Graphics, SpriteBatch, Position, Spritesheet)
         {
-            speed = 250f;
-        }
-
-        public override void Initialize()
-        {
-            
+            Speed = 250f;
         }
 
         public override void Update(GameTime gameTime)
@@ -32,21 +27,21 @@ namespace Spatial_Invasor
             var kstate = Keyboard.GetState();
 
             if (kstate.IsKeyDown(Keys.Left)) {
-                _position.X -= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
 
             if (kstate.IsKeyDown(Keys.Right)) {
-                _position.X += speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
-            if (_position.X > Limits[1])
+            if (Position.X > Limits[1])
             {
-                _position.X = Limits[1];
+                Position.X = Limits[1];
             }
 
-            else if (_position.X < Limits[0]) {
-                _position.X = Limits[0];
+            else if (Position.X < Limits[0]) {
+                Position.X = Limits[0];
             }
                 
 
@@ -54,9 +49,8 @@ namespace Spatial_Invasor
         }
 
         public override void Draw()
-        {
-            
-            _spriteBatch.Draw(_spriteSheet, _position, spriteSheetPosition[0], Color.White);
+        {            
+            spriteBatch.Draw(SpriteSheet, Position, SpriteSheetPosition[0], Color.White);
             base.Draw();
         }
 
