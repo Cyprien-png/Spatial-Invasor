@@ -9,17 +9,15 @@ namespace Spatial_Invasor
 {
     public class Player : Entity
     {
-        public List<Rectangle> spriteSheetPosition = new List<Rectangle>()
+        private Rectangle _spriteSheetPosition;
+        private float[] _limits = { 250, 700 };
+
+
+
+        public Player(GraphicsDeviceManager Graphics, SpriteBatch SpriteBatch, Vector2 Position, Texture2D Spritesheet, Rectangle spriteSheetPosition) : base(Graphics, SpriteBatch, Position, Spritesheet, spriteSheetPosition)
         {
-            new Rectangle(152, 1, 21, 21)
-        };
-
-        private float[] Limits = { 250, 700 };
-
-
-        public Player(GraphicsDeviceManager Graphics, SpriteBatch SpriteBatch, Vector2 Position, Texture2D Spritesheet) : base(Graphics, SpriteBatch, Position, Spritesheet)
-        {
-            speed = 250f;
+            Speed = 250f;
+            _spriteSheetPosition = spriteSheetPosition;
         }
 
         public override void Initialize()
@@ -31,32 +29,34 @@ namespace Spatial_Invasor
         {
             var kstate = Keyboard.GetState();
 
-            if (kstate.IsKeyDown(Keys.Left)) {
-                _position.X -= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
 
+            if (kstate.IsKeyDown(Keys.Left)) {
+                Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
 
             if (kstate.IsKeyDown(Keys.Right)) {
-                _position.X += speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
-            if (_position.X > Limits[1])
+            if (Position.X > _limits[1])
             {
-                _position.X = Limits[1];
+                Position.X = _limits[1];
+            }
+            else if (Position.X < _limits[0]) {
+                Position.X = _limits[0];
             }
 
-            else if (_position.X < Limits[0]) {
-                _position.X = Limits[0];
-            }
-                
+
+            Hitbox.X = (int)Position.X;
+            Hitbox.Y = (int)Position.Y;
 
             base.Update(gameTime);
         }
 
         public override void Draw()
-        {
-            
-            _spriteBatch.Draw(_spriteSheet, _position, spriteSheetPosition[0], Color.White);
+        {       
+            SpriteBatch.Draw(SpriteSheet, Position, _spriteSheetPosition, Color.White);
+
             base.Draw();
         }
 

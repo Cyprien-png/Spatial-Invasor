@@ -33,7 +33,7 @@ namespace Spatial_Invasor
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             spriteSheet = Content.Load<Texture2D>("main-spriteSheet");
 
-            Player = new Player(_graphics, _spriteBatch, new Vector2(250, 400), spriteSheet);
+            Player = new Player(_graphics, _spriteBatch, new Vector2(250, 400), spriteSheet, new Rectangle(152, 1, 21, 21)); //Le réctangle contient les dimensions de la découpe du srpite dans le srpiteSheet
 
             base.LoadContent();
         }
@@ -45,7 +45,6 @@ namespace Spatial_Invasor
 
             
             Player.Update(gameTime);
-
             base.Update(gameTime);
         }
 
