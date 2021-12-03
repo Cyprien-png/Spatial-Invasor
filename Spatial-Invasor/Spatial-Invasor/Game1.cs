@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Spatial_Invasor
 {
@@ -8,8 +9,10 @@ namespace Spatial_Invasor
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Entity Player;
+        private Texture2D spriteSheet;
 
-        private Texture2D player;
+        Texture2D scoreWindow;
 
         public Game1()
         {
@@ -20,17 +23,19 @@ namespace Spatial_Invasor
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            scoreWindow = new Texture2D(GraphicsDevice, 80, 80);
+            //scoreWindow.SetData(Color.White);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteSheet = Content.Load<Texture2D>("main-spriteSheet");
 
-            player = Content.Load<Texture2D>("main_spritesheet");
+            Player = new Player(_graphics, _spriteBatch, new Vector2(250, 400), spriteSheet);
 
+            base.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
@@ -38,17 +43,19 @@ namespace Spatial_Invasor
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            
+            Player.Update(gameTime);
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
-            _spriteBatch.Draw(player, new Rectangle(206, 22, 49, 49), Color.White);
+            _spriteBatch.Draw(scoreWindow, new Vector2(100, 100), Color.White);
+            
+            Player.Draw();
             _spriteBatch.End();
 
             base.Draw(gameTime);
