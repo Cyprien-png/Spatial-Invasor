@@ -6,62 +6,70 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Spatial_Invasor
+namespace SpatialInvasor
 {
     public class Wall : Entity
     {
-        private Rectangle _spriteSheetPosition;
-        private int _life;
-
-
-
-        public Wall(GraphicsDeviceManager Graphics, SpriteBatch SpriteBatch, Vector2 Position, Texture2D Spritesheet, Rectangle spriteSheetPosition) : base(Graphics, SpriteBatch, Position, Spritesheet, spriteSheetPosition)
+        
+        public Wall(Game game, Vector2 Coordinate) : base(game)
         {
-            _life = 4;
-            _spriteSheetPosition = spriteSheetPosition;
+            Life = 4;
+            Position = Coordinate;
+            SheetPositions = new List<Rectangle>()
+            {
+                new Rectangle(99, 1, 50, 21), // 4 pv
+                new Rectangle(1, 52, 50, 21), // 3 pv
+                new Rectangle(53, 52, 50, 21), // 2 pv
+                new Rectangle(106, 52, 50, 21) // 1 pv
+            };
+            CurrentSheetPosition = SheetPositions[0];
+            CreateHitbox();
 
         }
-
+        /*
         public override void Initialize()
         {
             
         }
-
+        */
         public override void Update(GameTime gameTime)
         {
-    
-           
              var kstate = Keyboard.GetState();
-
-
-            if (kstate.IsKeyDown(Keys.Up)) {            // a remplacer par qqc comme ça :
-                                                        // if (Hitbox.Intersects(laser)){
-
-                _life -= 1;
+          
+            // à remplacer par qqc comme ça : if (Hitbox.Intersects(laser)){
+            if (kstate.IsKeyDown(Keys.Up)) {            
+                Life -= 1;
  
-                switch (_life)
+                switch (Life)
                 {
+                    case 4:
+                        CurrentSheetPosition = SheetPositions[0];
+                        break;
                     case 3 :
-                        _spriteSheetPosition = new Rectangle(1, 52, 50, 21);
-                    break;
+                        CurrentSheetPosition = SheetPositions[1];
+                        break;
                     case 2 :
-                        _spriteSheetPosition = new Rectangle(53, 52, 50, 21);
-                    break;
+                        CurrentSheetPosition = SheetPositions[2];
+                        break;
                      case 1 :
-                        _spriteSheetPosition = new Rectangle(106, 52, 50, 21);
-                    break;
+                        CurrentSheetPosition = SheetPositions[3];
+                        break;
                 }
             }
 
-            base.Update(gameTime);
         }
 
-        public override void Draw()
+        public override void Draw(GameTime gametime)
         {       
-            if(_life > 0)
-            SpriteBatch.Draw(SpriteSheet, Position, _spriteSheetPosition, Color.White);
+            if(Life > 0)
+            {
+                SpriteBatch.Begin();
+                SpriteBatch.Draw(SpriteSheet, Position, CurrentSheetPosition, Color.White);
+                SpriteBatch.End();
+            }
+            
 
-            base.Draw();
+            //base.Draw();
         }
 
     }

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Spatial_Invasor
+namespace SpatialInvasor
 {
     public class Player : Entity
     {
@@ -16,7 +16,11 @@ namespace Spatial_Invasor
         {
             Speed = 250f;
             Position = new Vector2(250, 400);
-            SheetPositions.Add(new Rectangle(152, 1, 21, 21));
+            SheetPositions = new List<Rectangle>()
+            {
+                new Rectangle(152, 1, 21, 21)
+            };
+            CreateHitbox();
         }
         /*
         public override void Initialize()
@@ -48,7 +52,7 @@ namespace Spatial_Invasor
             Hitbox.X = (int)Position.X;
             Hitbox.Y = (int)Position.Y;
 
-            base.Update(gameTime);
+            //base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)

@@ -5,23 +5,28 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Spatial_Invasor
+namespace SpatialInvasor
 {
     public class Entity : DrawableGameComponent
     {
+        // Ces attributs sont partagés par toutes les entitées
         public List<Rectangle> SheetPositions;
-
+        public Rectangle CurrentSheetPosition;
         protected float Speed;
         protected Vector2 Position;
+        protected int Life;
         protected Rectangle Hitbox;
 
-        public SpriteBatch SpriteBatch;
-        public GraphicsDeviceManager Graphics;
         protected Texture2D SpriteSheet;
 
-
+        public SpriteBatch SpriteBatch;
+        
         public Entity(Game game) : base(game)
         {
+            
+        }
+
+        public void CreateHitbox() {
             Hitbox = new Rectangle((int)Position.X, (int)Position.Y, SheetPositions[0].Width, SheetPositions[0].Height);
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Spatial_Invasor
+namespace SpatialInvasor
 {
     public static class Program
     {
