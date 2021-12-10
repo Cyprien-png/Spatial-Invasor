@@ -13,7 +13,7 @@ namespace Spatial_Invasor
 
         protected float Speed;
         protected Vector2 Position;
-        public Rectangle Hitbox;
+        protected Rectangle Hitbox;
 
         public SpriteBatch SpriteBatch;
         public GraphicsDeviceManager Graphics;
@@ -22,17 +22,12 @@ namespace Spatial_Invasor
 
         public Entity(Game game) : base(game)
         {
-            /*
-            this.Graphics = Graphics;
-            this.SpriteBatch = SpriteBatch;
-            this.Position = Position;
-            SpriteSheet = Spritesheet;
-            Hitbox = new Rectangle((int)Position.X, (int)Position.Y, spriteSheetPosition.Width, spriteSheetPosition.Height);
-            */
+            Hitbox = new Rectangle((int)Position.X, (int)Position.Y, SheetPositions[0].Width, SheetPositions[0].Height);
         }
 
         protected override void LoadContent() {
             SpriteSheet = Game.Content.Load<Texture2D>("main-spritesheet");
+            SpriteBatch = new SpriteBatch(Game.GraphicsDevice);
         }
     }
 

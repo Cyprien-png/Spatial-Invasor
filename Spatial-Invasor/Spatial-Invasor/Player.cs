@@ -18,12 +18,12 @@ namespace Spatial_Invasor
             Position = new Vector2(250, 400);
             SheetPositions.Add(new Rectangle(152, 1, 21, 21));
         }
-
+        /*
         public override void Initialize()
         {
 
         }
-
+        */
         public override void Update(GameTime gameTime)
         {
             var kstate = Keyboard.GetState();
@@ -45,7 +45,6 @@ namespace Spatial_Invasor
                 Position.X = _limits[0];
             }
 
-
             Hitbox.X = (int)Position.X;
             Hitbox.Y = (int)Position.Y;
 
@@ -57,7 +56,6 @@ namespace Spatial_Invasor
             SpriteBatch.Begin();
             SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[0], Color.White);
             SpriteBatch.End();
-
         }
 
     }
