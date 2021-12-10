@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Spatial_Invasor
 {
-    public class Game1 : Game
+    public class SpatialInvasor : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -15,7 +15,7 @@ namespace Spatial_Invasor
 
         Texture2D scoreWindow;
 
-        public Game1()
+        public SpatialInvasor()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
