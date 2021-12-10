@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Benjamin.MUMINOVIC\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj": {}
+    "C:\\Users\\Cyprien.JAQUIER\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Benjamin.MUMINOVIC\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj": {
+    "C:\\Users\\Cyprien.JAQUIER\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Benjamin.MUMINOVIC\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
+        "projectUniqueName": "C:\\Users\\Cyprien.JAQUIER\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
         "projectName": "Spatial-Invasor",
-        "projectPath": "C:\\Users\\Benjamin.MUMINOVIC\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
-        "packagesPath": "C:\\Users\\Benjamin.MUMINOVIC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Benjamin.MUMINOVIC\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\obj\\",
+        "projectPath": "C:\\Users\\Cyprien.JAQUIER\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
+        "packagesPath": "C:\\Users\\Cyprien.JAQUIER\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Cyprien.JAQUIER\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Benjamin.MUMINOVIC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Cyprien.JAQUIER\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -9,8 +9,9 @@ namespace Spatial_Invasor
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Entity Player;
-        private Texture2D spriteSheet;
+        private Entity _player;
+        private Texture2D _spriteSheet;
+        private List<Wall> _walls; 
 
         Texture2D scoreWindow;
 
@@ -19,6 +20,7 @@ namespace Spatial_Invasor
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            _walls = new List<Wall>();
         }
 
         protected override void Initialize()
@@ -31,10 +33,13 @@ namespace Spatial_Invasor
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            spriteSheet = Content.Load<Texture2D>("main-spriteSheet");
+            _spriteSheet = Content.Load<Texture2D>("main-spriteSheet");
 
-            Player = new Player(_graphics, _spriteBatch, new Vector2(250, 400), spriteSheet);
-
+            _player = new Player(_graphics, _spriteBatch, new Vector2(250, 400), _spriteSheet, new Rectangle(152, 1, 21, 21)); //Le réctangle contient les dimensions de la découpe du srpite dans le srpiteSheet
+            _walls.Add(new Wall(_graphics, _spriteBatch, new Vector2(300, 350), _spriteSheet, new Rectangle(99, 1, 50, 21)));
+            _walls.Add(new Wall(_graphics, _spriteBatch, new Vector2(400, 350), _spriteSheet, new Rectangle(99, 1, 50, 21)));
+            _walls.Add(new Wall(_graphics, _spriteBatch, new Vector2(525, 350), _spriteSheet, new Rectangle(99, 1, 50, 21)));
+            _walls.Add(new Wall(_graphics, _spriteBatch, new Vector2(625, 350), _spriteSheet, new Rectangle(99, 1, 50, 21)));
             base.LoadContent();
         }
 
@@ -43,9 +48,11 @@ namespace Spatial_Invasor
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            
-            Player.Update(gameTime);
-
+            foreach(Wall wall in _walls)
+            {
+                wall.Update(gameTime);
+            }
+            _player.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -54,8 +61,14 @@ namespace Spatial_Invasor
             GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             _spriteBatch.Draw(scoreWindow, new Vector2(100, 100), Color.White);
+
+            _player.Draw();
+
+            foreach(Wall wall in _walls)
+            {
+                wall.Draw();
+            }
             
-            Player.Draw();
             _spriteBatch.End();
 
             base.Draw(gameTime);

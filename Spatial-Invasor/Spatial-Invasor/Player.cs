@@ -9,48 +9,54 @@ namespace Spatial_Invasor
 {
     public class Player : Entity
     {
-        public List<Rectangle> SpriteSheetPosition = new List<Rectangle>()
-        {
-            new Rectangle(152, 1, 21, 21)
-        };
-
-        public float[] Limits = { 250, 700 };
+        private Rectangle _spriteSheetPosition;
+        private float[] _limits = { 250, 700 };
 
 
-        public Player(GraphicsDeviceManager Graphics, SpriteBatch SpriteBatch, Vector2 Position, Texture2D Spritesheet) : base(Graphics, SpriteBatch, Position, Spritesheet)
+
+        public Player(GraphicsDeviceManager Graphics, SpriteBatch SpriteBatch, Vector2 Position, Texture2D Spritesheet, Rectangle spriteSheetPosition) : base(Graphics, SpriteBatch, Position, Spritesheet, spriteSheetPosition)
         {
             Speed = 250f;
+            _spriteSheetPosition = spriteSheetPosition;
+        }
+
+        public override void Initialize()
+        {
+
         }
 
         public override void Update(GameTime gameTime)
         {
             var kstate = Keyboard.GetState();
 
+
             if (kstate.IsKeyDown(Keys.Left)) {
                 Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-
 
             if (kstate.IsKeyDown(Keys.Right)) {
                 Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
-            if (Position.X > Limits[1])
+            if (Position.X > _limits[1])
             {
-                Position.X = Limits[1];
+                Position.X = _limits[1];
+            }
+            else if (Position.X < _limits[0]) {
+                Position.X = _limits[0];
             }
 
-            else if (Position.X < Limits[0]) {
-                Position.X = Limits[0];
-            }
-                
+
+            Hitbox.X = (int)Position.X;
+            Hitbox.Y = (int)Position.Y;
 
             base.Update(gameTime);
         }
 
         public override void Draw()
-        {            
-            spriteBatch.Draw(SpriteSheet, Position, SpriteSheetPosition[0], Color.White);
+        {
+            SpriteBatch.Draw(SpriteSheet, Position, _spriteSheetPosition, Color.White);
+
             base.Draw();
         }
 
