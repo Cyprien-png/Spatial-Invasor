@@ -9,15 +9,14 @@ namespace Spatial_Invasor
 {
     public class Player : Entity
     {
-        private Rectangle _spriteSheetPosition;
+        //private Rectangle _spriteSheetPosition = new Rectangle(152, 1, 21, 21);
         private float[] _limits = { 250, 700 };
 
-
-
-        public Player(GraphicsDeviceManager Graphics, SpriteBatch SpriteBatch, Vector2 Position, Texture2D Spritesheet, Rectangle spriteSheetPosition) : base(Graphics, SpriteBatch, Position, Spritesheet, spriteSheetPosition)
+        public Player(Game game) : base(game)
         {
             Speed = 250f;
-            _spriteSheetPosition = spriteSheetPosition;
+            Position = new Vector2(250, 400);
+            SheetPositions.Add(new Rectangle(152, 1, 21, 21));
         }
 
         public override void Initialize()
@@ -53,11 +52,12 @@ namespace Spatial_Invasor
             base.Update(gameTime);
         }
 
-        public override void Draw()
+        public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.Draw(SpriteSheet, Position, _spriteSheetPosition, Color.White);
+            SpriteBatch.Begin();
+            SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[0], Color.White);
+            SpriteBatch.End();
 
-            base.Draw();
         }
 
     }
