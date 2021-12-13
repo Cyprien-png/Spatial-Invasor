@@ -26,12 +26,7 @@ namespace SpatialInvasor
             CreateHitbox();
 
         }
-        /*
-        public override void Initialize()
-        {
-            
-        }
-        */
+
         public override void Update(GameTime gameTime)
         {
              var kstate = Keyboard.GetState();
@@ -56,7 +51,6 @@ namespace SpatialInvasor
                         break;
                 }
             }
-
         }
 
         public override void Draw(GameTime gametime)
@@ -67,9 +61,6 @@ namespace SpatialInvasor
                 SpriteBatch.Draw(SpriteSheet, Position, CurrentSheetPosition, Color.White);
                 SpriteBatch.End();
             }
-            
-
-            //base.Draw();
         }
 
     }

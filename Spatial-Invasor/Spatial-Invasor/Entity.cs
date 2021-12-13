@@ -15,7 +15,11 @@ namespace SpatialInvasor
         protected float Speed;
         protected Vector2 Position;
         protected int Life;
-        protected Rectangle Hitbox;
+        public Rectangle Hitbox;
+
+        public Vector2 GetPosition {
+            get => Position;
+        }
 
         protected Texture2D SpriteSheet;
 

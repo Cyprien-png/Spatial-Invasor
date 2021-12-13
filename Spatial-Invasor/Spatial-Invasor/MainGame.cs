@@ -5,12 +5,13 @@ using System.Collections.Generic;
 
 namespace SpatialInvasor
 {
-    public class SpatialInvasor : Game
+    public class MainGame : Game
     {
         private GraphicsDeviceManager _graphics;
         List<Vector2> WallPositions;
+        
 
-        public SpatialInvasor()
+        public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -27,6 +28,7 @@ namespace SpatialInvasor
 
         protected override void Initialize()
         {
+            
             Components.Add(new Playfield(this));
             Components.Add(new Player(this));
             
