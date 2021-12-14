@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "btWcXtiEL1YuZMr/N8CpefOSw6ThOpRoaQpaLJl5SeI8t0srP2HGffo6/4r2rIfD6Rie/bQVnZHPNfS+HkWFqw==",
+  "dgSpecHash": "VHmOYDg/riWqJsdj3VAmsrinH4puf5+LTN/rIQYMrroPsCFN0K+jUedWsBr1AyDhJhkhkvrZ9hlVDLpvMcN6UQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\benja\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
+  "projectFilePath": "C:\\Users\\Benjamin.MUMINOVIC\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\benja\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
-    "C:\\Users\\benja\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512"
+    "C:\\Users\\Benjamin.MUMINOVIC\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\Benjamin.MUMINOVIC\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512"
   ],
   "logs": []
 }

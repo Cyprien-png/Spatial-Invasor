@@ -11,6 +11,7 @@ namespace SpatialInvasor
         List<Vector2> WallPositions;
         
 
+
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
