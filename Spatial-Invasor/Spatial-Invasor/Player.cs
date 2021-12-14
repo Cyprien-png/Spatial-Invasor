@@ -5,30 +5,31 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Spatial_Invasor
+namespace SpatialInvasor
 {
     public class Player : Entity
     {
-        private Rectangle _spriteSheetPosition;
+        //private Rectangle _spriteSheetPosition = new Rectangle(152, 1, 21, 21);
         private float[] _limits = { 250, 700 };
+        
 
-
-
-        public Player(GraphicsDeviceManager Graphics, SpriteBatch SpriteBatch, Vector2 Position, Texture2D Spritesheet, Rectangle spriteSheetPosition) : base(Graphics, SpriteBatch, Position, Spritesheet, spriteSheetPosition)
+        public Player(Game game) : base(game)
         {
             Speed = 250f;
-            _spriteSheetPosition = spriteSheetPosition;
-        }
+            Position = new Vector2(250, 400);
+            SheetPositions = new List<Rectangle>()
+            {
+                new Rectangle(152, 1, 21, 21)
+            };
+            CreateHitbox();
 
-        public override void Initialize()
-        {
-
+            
         }
 
         public override void Update(GameTime gameTime)
         {
+            
             var kstate = Keyboard.GetState();
-
 
             if (kstate.IsKeyDown(Keys.Left)) {
                 Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -46,18 +47,17 @@ namespace Spatial_Invasor
                 Position.X = _limits[0];
             }
 
-
             Hitbox.X = (int)Position.X;
             Hitbox.Y = (int)Position.Y;
 
-            base.Update(gameTime);
+            //base.Update(gameTime);
         }
 
-        public override void Draw()
+        public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.Draw(SpriteSheet, Position, _spriteSheetPosition, Color.White);
-
-            base.Draw();
+            SpriteBatch.Begin();
+            SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[0], Color.White);
+            SpriteBatch.End();
         }
 
     }
