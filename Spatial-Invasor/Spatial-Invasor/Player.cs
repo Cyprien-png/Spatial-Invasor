@@ -7,16 +7,17 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SpatialInvasor
 {
-    public class Player : Entity
+    public class Player : Creature
     {
         //private Rectangle _spriteSheetPosition = new Rectangle(152, 1, 21, 21);
         private float[] _limits = { 250, 700 };
-        
+        //private LaserShot Laser;
 
         public Player(Game game) : base(game)
         {
             Speed = 250f;
             Position = new Vector2(250, 400);
+            //Laser = laser;
             SheetPositions = new List<Rectangle>()
             {
                 new Rectangle(152, 1, 21, 21)
@@ -38,6 +39,9 @@ namespace SpatialInvasor
             if (kstate.IsKeyDown(Keys.Right)) {
                 Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
+
+            Shoot();
+            
 
             if (Position.X > _limits[1])
             {
