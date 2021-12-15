@@ -7,23 +7,44 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SpatialInvasor
 {
-    public class Player : Entity
+    public class Player : Creature
     {
-        //private Rectangle _spriteSheetPosition = new Rectangle(152, 1, 21, 21);
-        private float[] _limits = { 250, 700 };
-        
+
+        private KeyboardState _currentState;
+        private KeyboardState _previousState;
 
         public Player(Game game) : base(game)
         {
             Speed = 250f;
+
+            // La valeure négative signifie que le laser se déplace vers le haut
+            // environ -900 est une bonne vitesse
+            ShootingSpeed = -900; 
+
             Position = new Vector2(250, 400);
+            Limits = new float[2] { 250f, 700f };
+
             SheetPositions = new List<Rectangle>()
             {
                 new Rectangle(152, 1, 21, 21)
             };
-            CreateHitbox();
 
-            
+            _currentState = Keyboard.GetState();
+
+            CreateHitbox();
+        }
+
+        public override Vector2 GetCenterPosition()
+        {
+            return Position + new Vector2(10, 0);
+        }
+        // Cette méthode est constamment appelée par l'update du laser. Elle pourait être implémentée différemment
+        public override bool IsPressingTrigger()
+        {
+            _previousState = _currentState;
+            _currentState = Keyboard.GetState();
+
+            return (_currentState.IsKeyDown(Keys.Space) && (_previousState.IsKeyUp(Keys.Space)));
         }
 
         public override void Update(GameTime gameTime)
@@ -39,18 +60,17 @@ namespace SpatialInvasor
                 Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
-            if (Position.X > _limits[1])
+            if (Position.X > Limits[1])
             {
-                Position.X = _limits[1];
+                Position.X = Limits[1];
             }
-            else if (Position.X < _limits[0]) {
-                Position.X = _limits[0];
+            else if (Position.X < Limits[0]) {
+                Position.X = Limits[0];
             }
 
             Hitbox.X = (int)Position.X;
             Hitbox.Y = (int)Position.Y;
 
-            //base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)

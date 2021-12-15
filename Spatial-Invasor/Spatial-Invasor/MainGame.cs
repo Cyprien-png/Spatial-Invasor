@@ -9,8 +9,9 @@ namespace SpatialInvasor
     {
         private GraphicsDeviceManager _graphics;
         List<Vector2> WallPositions;
-        
-
+        List<LaserShot> LaserList;
+        private Player player;
+        LaserShot plLaser;
 
         public MainGame()
         {
@@ -24,15 +25,31 @@ namespace SpatialInvasor
                 new Vector2(525, 350),
                 new Vector2(625, 350)
             };
+            player = new Player(this);
+            //plLaser = new LaserShot(this, player);
+
+            LaserList = new List<LaserShot>() {
+                new LaserShot(this, player)
+            };
+            //LaserList.Add(plLaser);
+            
 
         }
 
         protected override void Initialize()
         {
             
-            Components.Add(new Playfield(this));
-            Components.Add(new Player(this));
             
+            
+            Components.Add(new Playfield(this));
+            //Components.Add(LaserList[0]);
+            Components.Add(player);
+
+            foreach (LaserShot lasers in LaserList)
+            {
+                Components.Add(lasers);
+            }
+
             foreach (Vector2 wallCoordinate in WallPositions) {
                 Components.Add(new Wall(this, wallCoordinate));
             }
