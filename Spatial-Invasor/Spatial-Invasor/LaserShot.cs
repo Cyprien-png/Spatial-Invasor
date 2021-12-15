@@ -10,51 +10,52 @@ namespace SpatialInvasor
     {
         
         private Vector2 _initialPosition;
-        private Creature Shooter;
+        private Creature _shooter;
+        private bool _isMoving;
 
         public LaserShot(Game game, Creature shooter) : base(game)
         {
-            Speed = 1;
+            _shooter = shooter;
 
-            this.Shooter = shooter;
-            Shooter.CurrentState = Keyboard.GetState();
-            Position = Shooter.GetPosition;
-
-            SheetPositions = new List<Rectangle>() { new Rectangle(1, 1, 50, 50) };
+            // Défini la position de base du laser, qui est cachée en dehors de l'écran
+            _initialPosition = new Vector2(700, 700);
+            Position = _initialPosition;
+            // Le laser n'a pas de sprite particulière, elle est donc récupérée sur une sprite de mur.
+            SheetPositions = new List<Rectangle>() { new Rectangle(121, 7, 2, 8) };
 
             CreateHitbox();
         }
 
         public override void Update(GameTime gameTime)
         {
-            Shooter.PreviousState = Shooter.CurrentState;
-            Shooter.CurrentState = Keyboard.GetState();
-
-            //if (Shooter.IsShooting) {
-                
-
-                //Position = Shooter.GetPosition;
-
-            Position.Y -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-                // Lorsque le laser quitte l'écran ou touche une cible, 
-                // il est redirigé dans sa zone chachée
-                // TODO : Ajouter collision laser à la condition ------------------------------------
-                /*
-                if (Position.Y < 0)
+            if (_isMoving)
+            {
+                // TODO  : Implémenter la collision avec un mur où un ennemi
+                if (Position.Y > 0)
                 {
-                    Position = new Vector2(700, 700);
+                    // Fait se déplacer le laser
+                    Position.Y += _shooter.ShootingSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 }
-                */
-            //}
-            
+                else {
+                    _isMoving = false;
+                    Position = _initialPosition;
+                }
+            }
+            else {
+                // La balle se lance lorsque le joueur tire, il ne peut plus tirer tant la balle est visible
+                if (_shooter.IsPressingTrigger())
+                {
+                    Position = _shooter.GetCenterPosition();
+                    _isMoving = true;
+                }
+            }
             
         }
 
         public override void Draw(GameTime gametime)
         {
             SpriteBatch.Begin();
-            SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[0], Color.White);
+            SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[0], Color.Red);
             SpriteBatch.End();
         }
     }
