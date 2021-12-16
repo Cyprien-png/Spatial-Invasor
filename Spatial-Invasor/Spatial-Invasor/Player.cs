@@ -68,6 +68,8 @@ namespace SpatialInvasor
                 Position.X = Limits[0];
             }
 
+            Shoot();
+
             Hitbox.X = (int)Position.X;
             Hitbox.Y = (int)Position.Y;
 
