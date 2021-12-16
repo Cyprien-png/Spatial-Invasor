@@ -27,6 +27,8 @@ namespace SpatialInvasor
             }
         }
 
+        protected abstract void Move(GameTime gametime);
+
         // Le centre d'un élément peut être décalé graphiquement par rapport au centre de la sprite
         public abstract Vector2 GetCenterPosition();
         public Creature(Game game) : base(game) {}

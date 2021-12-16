@@ -13,9 +13,8 @@ namespace SpatialInvasor
         public LaserShot(Game game, Creature shooter) : base(game)
         {
             _shooter = shooter;
-            // Défini la position de base du laser, qui est cachée en dehors de l'écran
-            _initialPosition = new Vector2(700, 700);
             Position = _shooter.GetCenterPosition();
+
             // Le laser n'a pas de sprite particulière, elle est donc récupérée sur une sprite de mur.
             SheetPositions = new List<Rectangle>() { new Rectangle(121, 7, 2, 8) };
 
