@@ -38,6 +38,7 @@ namespace SpatialInvasor
         {
             return Position + new Vector2(10, 0);
         }
+
         // Cette méthode est constamment appelée par l'update du laser. Elle pourait être implémentée différemment
         public override bool IsPressingTrigger()
         {
@@ -47,16 +48,17 @@ namespace SpatialInvasor
             return (_currentState.IsKeyDown(Keys.Space) && (_previousState.IsKeyUp(Keys.Space)));
         }
 
-        public override void Update(GameTime gameTime)
+        protected override void Move(GameTime gameTime)
         {
-            
             var kstate = Keyboard.GetState();
 
-            if (kstate.IsKeyDown(Keys.Left)) {
+            if (kstate.IsKeyDown(Keys.Left))
+            {
                 Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
-            if (kstate.IsKeyDown(Keys.Right)) {
+            if (kstate.IsKeyDown(Keys.Right))
+            {
                 Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
@@ -64,9 +66,17 @@ namespace SpatialInvasor
             {
                 Position.X = Limits[1];
             }
-            else if (Position.X < Limits[0]) {
+            else if (Position.X < Limits[0])
+            {
                 Position.X = Limits[0];
             }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+
+            Move(gameTime);
+            Shoot();
 
             Hitbox.X = (int)Position.X;
             Hitbox.Y = (int)Position.Y;
