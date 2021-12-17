@@ -32,18 +32,16 @@ namespace SpatialInvasor
                 new LaserShot(this, player)
             };
             //LaserList.Add(plLaser);
-            
-
         }
 
         protected override void Initialize()
         {
-            
-            
-            
             Components.Add(new Playfield(this));
             //Components.Add(LaserList[0]);
             Components.Add(player);
+            Components.Add(new Octopus(this));
+            Components.Add(new Crab(this));
+            Components.Add(new Squid(this));
 
             foreach (LaserShot lasers in LaserList)
             {
