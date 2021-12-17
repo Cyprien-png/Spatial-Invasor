@@ -22,7 +22,7 @@ namespace SpatialInvasor
             ShootingSpeed = -900; 
 
             Position = new Vector2(250, 400);
-            Limits = new float[2] { 250f, 700f };
+            Limits = new float[2] { 100f, 700f };
 
             SheetPositions = new List<Rectangle>()
             {

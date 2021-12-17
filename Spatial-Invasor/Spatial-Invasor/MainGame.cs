@@ -18,10 +18,11 @@ namespace SpatialInvasor
             IsMouseVisible = true;
             WallPositions = new List<Vector2>()
             {
-                new Vector2(300, 350),
-                new Vector2(400, 350),
-                new Vector2(525, 350),
-                new Vector2(625, 350)
+                new Vector2(175, 350),
+                new Vector2(275, 350),
+                new Vector2(375, 350),
+                new Vector2(475, 350),
+                new Vector2(575, 350)
             };
             player = new Player(this);
         }
