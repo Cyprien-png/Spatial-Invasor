@@ -4,9 +4,11 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/benja/Documents/GitHub/Spatial-Invasor/Spatial-Invasor/Spatial-Invasor/Content/font.spritefont</File>
     <File>C:/Users/benja/Documents/GitHub/Spatial-Invasor/Spatial-Invasor/Spatial-Invasor/Content/main-spritesheet.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>
