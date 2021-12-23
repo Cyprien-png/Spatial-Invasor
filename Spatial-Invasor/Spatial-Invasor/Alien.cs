@@ -6,6 +6,8 @@ namespace SpatialInvasor
 {
     public abstract class Alien : Creature
     {
+       protected float countDuration = 2f;
+
         public Alien(MainGame game) : base(game) { }
 
         public override bool IsPressingTrigger()

@@ -7,6 +7,7 @@ namespace SpatialInvasor
 {
     public class Octopus : Alien
     {
+        bool Direction = true;
 
         public Octopus(MainGame game) : base(game)
         {

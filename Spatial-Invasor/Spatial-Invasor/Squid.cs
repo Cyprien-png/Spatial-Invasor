@@ -7,6 +7,7 @@ namespace SpatialInvasor
 {
     class Squid : Alien
     {
+        bool Direction = true;
         public Squid(MainGame game) : base(game)
         {
             Speed = 250f;

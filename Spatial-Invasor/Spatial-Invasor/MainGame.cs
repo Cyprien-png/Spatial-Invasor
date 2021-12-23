@@ -30,6 +30,7 @@ namespace SpatialInvasor
         {
             Components.Add(new Playfield(this));
             Components.Add(player);
+            Components.Add(new Crab(this));
             foreach (Vector2 wallCoordinate in WallPositions) {
                 Components.Add(new Wall(this, wallCoordinate));
             }
