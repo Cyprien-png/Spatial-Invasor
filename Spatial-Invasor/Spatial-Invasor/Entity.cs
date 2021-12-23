@@ -14,9 +14,7 @@ namespace SpatialInvasor
         public Rectangle CurrentSheetPosition;
         protected float Speed;
         protected Vector2 Position;
-        protected int Life;
-
-        public Rectangle Hitbox;
+        public int Life;
 
         protected Texture2D SpriteSheet;
         public SpriteBatch SpriteBatch;
@@ -26,8 +24,9 @@ namespace SpatialInvasor
             
         }
 
-        public void CreateHitbox() {
-            Hitbox = new Rectangle((int)Position.X, (int)Position.Y, SheetPositions[0].Width, SheetPositions[0].Height);
+        public Rectangle Hitbox
+        {
+            get { return new Rectangle((int)Position.X, (int)Position.Y, SheetPositions[0].Width, SheetPositions[0].Height); }
         }
 
         protected override void LoadContent() {
