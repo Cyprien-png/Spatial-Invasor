@@ -23,18 +23,13 @@ namespace SpatialInvasor
                 new Rectangle(106, 52, 50, 21) // 1 pv
             };
             CurrentSheetPosition = SheetPositions[0];
-            CreateHitbox();
 
         }
 
         public override void Update(GameTime gameTime)
         {
-             var kstate = Keyboard.GetState();
-          
-            // à remplacer par qqc comme ça : if (Hitbox.Intersects(laser)){
-            if (kstate.IsKeyDown(Keys.Up)) {            
-                Life -= 1;
- 
+             var kstate = Keyboard.GetState();        
+                
                 switch (Life)
                 {
                     case 4:
@@ -49,8 +44,10 @@ namespace SpatialInvasor
                      case 1 :
                         CurrentSheetPosition = SheetPositions[3];
                         break;
+                    case 0 :
+                        Game.Components.Remove(this);
+                    break;
                 }
-            }
         }
 
         public override void Draw(GameTime gametime)
@@ -61,6 +58,11 @@ namespace SpatialInvasor
                 SpriteBatch.Draw(SpriteSheet, Position, CurrentSheetPosition, Color.White);
                 SpriteBatch.End();
             }
+        }
+
+        public void Hit()
+        {
+            Life -= 1;
         }
 
     }

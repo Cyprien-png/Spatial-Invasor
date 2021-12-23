@@ -22,6 +22,7 @@ namespace SpatialInvasor
                 if (!Game.Components.Contains(Shot))
                 {
                     Shot = new LaserShot(Game, this);
+                    ((MainGame)Game).addShot(Shot);
                     Game.Components.Add(Shot);
                 }
             }
