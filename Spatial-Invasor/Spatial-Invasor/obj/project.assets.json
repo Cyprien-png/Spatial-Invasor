@@ -174,19 +174,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\loik.meylan\\.nuget\\packages\\": {}
+    "C:\\Users\\Benjamin.MUMINOVIC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\loik.meylan\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
+      "projectUniqueName": "C:\\Users\\Benjamin.MUMINOVIC\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
       "projectName": "Spatial-Invasor",
-      "projectPath": "C:\\Users\\loik.meylan\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
-      "packagesPath": "C:\\Users\\loik.meylan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\loik.meylan\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\obj\\",
+      "projectPath": "C:\\Users\\Benjamin.MUMINOVIC\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
+      "packagesPath": "C:\\Users\\Benjamin.MUMINOVIC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Benjamin.MUMINOVIC\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\loik.meylan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Benjamin.MUMINOVIC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

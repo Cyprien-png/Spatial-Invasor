@@ -131,3 +131,4 @@ C:\Users\loik.meylan\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-In
 C:\Users\loik.meylan\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-Invasor\obj\Debug\netcoreapp3.1\Spatial-Invasor.dll
 C:\Users\loik.meylan\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-Invasor\obj\Debug\netcoreapp3.1\Spatial-Invasor.pdb
 C:\Users\loik.meylan\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-Invasor\obj\Debug\netcoreapp3.1\Spatial-Invasor.genruntimeconfig.cache
+C:\Users\Benjamin.MUMINOVIC\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-Invasor\bin\Debug\netcoreapp3.1\Content\font.xnb
