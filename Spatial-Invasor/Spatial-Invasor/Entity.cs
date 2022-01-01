@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SpatialInvasor
 {
-    public class Entity : DrawableGameComponent
+    public abstract class Entity : DrawableGameComponent
     {
         // Ces attributs sont partagés par toutes les entitées
         public List<Rectangle> SheetPositions;
         public Rectangle CurrentSheetPosition;
         protected float Speed;
-        protected Vector2 Position;
+        public Vector2 Position;
         protected int Life;
 
         public Rectangle Hitbox;

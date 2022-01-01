@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\loik.meylan\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj": {}
+    "C:\\Users\\benja\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\loik.meylan\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj": {
+    "C:\\Users\\benja\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\loik.meylan\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
+        "projectUniqueName": "C:\\Users\\benja\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
         "projectName": "Spatial-Invasor",
-        "projectPath": "C:\\Users\\loik.meylan\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
-        "packagesPath": "C:\\Users\\loik.meylan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\loik.meylan\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\obj\\",
+        "projectPath": "C:\\Users\\benja\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor.csproj",
+        "packagesPath": "C:\\Users\\benja\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\benja\\Documents\\GitHub\\Spatial-Invasor\\Spatial-Invasor\\Spatial-Invasor\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\loik.meylan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\benja\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
