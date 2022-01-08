@@ -17,8 +17,6 @@ namespace SpatialInvasor
 
             // Le laser n'a pas de sprite particulière, elle est donc récupérée sur une sprite de mur.
             SheetPositions = new List<Rectangle>() { new Rectangle(121, 7, 2, 8) };
-
-            CreateHitbox();
         }
 
         private bool isInBounds() {
@@ -36,7 +34,7 @@ namespace SpatialInvasor
             else
             {
                 // TODO : Implémenter un ajout de score si un alien est touché
-                Game.Components.Remove(this);
+                killLaser();
             }
         }
 
@@ -45,6 +43,11 @@ namespace SpatialInvasor
             SpriteBatch.Begin();
             SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[0], Color.Red);
             SpriteBatch.End();
+        }
+
+        public void killLaser()
+        {
+            Game.Components.Remove(this);
         }
     }
 }

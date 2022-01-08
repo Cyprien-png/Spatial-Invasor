@@ -29,8 +29,6 @@ namespace SpatialInvasor
             };
 
             _currentState = Keyboard.GetState();
-
-            CreateHitbox();
         }
 
         public override Vector2 GetCenterPosition()
@@ -76,9 +74,6 @@ namespace SpatialInvasor
 
             Move(gameTime);
             Shoot();
-
-            Hitbox.X = (int)Position.X;
-            Hitbox.Y = (int)Position.Y;
 
         }
 
