@@ -11,7 +11,7 @@ namespace SpatialInvasor
         // Défini les coordonnées limites d'axe X atteignable par une créature
         protected float[] Limits;
         // Défini la vitesse et la direction (nbr positif pour haut / l'inverse pour bas) d'un laser tiré par la créature
-        public float ShootingSpeed;
+        public int ShootingSpeed;
         // Une créature ne peut posséder plus d'un laser sur l'écran à la fois
         private LaserShot Shot;
 
@@ -32,7 +32,10 @@ namespace SpatialInvasor
 
         // Le centre d'un élément peut être décalé graphiquement par rapport au centre de la sprite
         public abstract Vector2 GetCenterPosition();
-        public Creature(Game game) : base(game) {}
+        public Creature(Game game) : base(game) {
+            Limits = new float[2] { 250f, 700f };
+            ShootingSpeed = 900;
+        }
         // La façon de tirer change totalement entre le joueur et les aliens
         public abstract bool IsPressingTrigger();
     }

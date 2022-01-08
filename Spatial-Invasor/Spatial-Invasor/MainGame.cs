@@ -71,7 +71,7 @@ namespace SpatialInvasor
                     _walls = _walls.Except(wallsToKill).ToList();
             }
             _laserList = _laserList.Except(lasersToKill).ToList();
-            
+
 
 
             base.Update(gameTime);

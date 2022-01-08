@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SpatialInvasor
 {
-    public class Entity : DrawableGameComponent
+    public abstract class Entity : DrawableGameComponent
     {
         // Ces attributs sont partagés par toutes les entitées
         public List<Rectangle> SheetPositions;
@@ -18,7 +18,7 @@ namespace SpatialInvasor
 
         protected Texture2D SpriteSheet;
         public SpriteBatch SpriteBatch;
-        
+
         public Entity(Game game) : base(game)
         {
             

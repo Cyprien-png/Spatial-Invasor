@@ -17,9 +17,8 @@ namespace SpatialInvasor
         {
             Speed = 250f;
 
-            // La valeure négative signifie que le laser se déplace vers le haut
-            // environ -900 est une bonne vitesse
-            ShootingSpeed = -900; 
+            // inverse le signe de la valeure pour que le laser se déplace vers le haut
+            ShootingSpeed = ~ShootingSpeed;
 
             Position = new Vector2(250, 400);
             Limits = new float[2] { 250f, 700f };
