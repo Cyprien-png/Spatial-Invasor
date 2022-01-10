@@ -10,6 +10,7 @@ namespace SpatialInvasor
 
         public Crab(MainGame game) : base(game)
         {
+            Position = new Vector2(271, 100);
             SheetPositions = new List<Rectangle>()
             {
                 new Rectangle(1, 26, 33, 24),
@@ -19,7 +20,7 @@ namespace SpatialInvasor
 
         public override Vector2 GetCenterPosition()
         {
-            throw new NotImplementedException();
+            return Position + new Vector2(16, 5);
         }
 
         public override void Draw(GameTime gameTime)
@@ -33,6 +34,7 @@ namespace SpatialInvasor
         public override void Update(GameTime gameTime)
         {
             Move(gameTime);
+            Shoot();
         }
 
     }

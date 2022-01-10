@@ -14,7 +14,7 @@ namespace SpatialInvasor
 
         public override bool IsPressingTrigger()
         {
-            return new Random().Next(100) == 99;
+            return new Random().Next(100000000) == 99999999;
         }
 
         protected void TouchLimit(GameTime gameTime)
@@ -33,16 +33,16 @@ namespace SpatialInvasor
 
         protected override void Move(GameTime gameTime)
         {
-            if ((gameTime.TotalGameTime.TotalSeconds % countDuration) < 0.01)
+            if ((gameTime.TotalGameTime.TotalSeconds % (countDuration /2)) < 0.01)
             {
                 if (Direction)
                 {
-                    Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
                     TouchLimit(gameTime);
                 }
                 else
                 {
-                    Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
                     TouchLimit(gameTime);
                 }
             }
