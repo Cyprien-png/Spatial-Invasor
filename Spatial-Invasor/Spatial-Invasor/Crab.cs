@@ -5,12 +5,10 @@ using System.Collections.Generic;
 namespace SpatialInvasor
 {
     public class Crab : Alien
-    {
-        
-
+    {        
         public Crab(MainGame game) : base(game)
         {
-            Position = new Vector2(271, 100);
+            Position = new Vector2(273, 100);
             SheetPositions = new List<Rectangle>()
             {
                 new Rectangle(1, 26, 33, 24),
