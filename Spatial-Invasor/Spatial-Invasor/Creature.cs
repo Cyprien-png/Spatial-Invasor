@@ -33,7 +33,7 @@ namespace SpatialInvasor
         // Le centre d'un élément peut être décalé graphiquement par rapport au centre de la sprite
         public abstract Vector2 GetCenterPosition();
         public Creature(Game game) : base(game) {
-            Limits = new float[2] { 250f, 700f };
+            Limits = new float[2] { 40f, 750f };
             ShootingSpeed = 900;
         }
         // La façon de tirer change totalement entre le joueur et les aliens
