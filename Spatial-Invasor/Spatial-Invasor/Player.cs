@@ -20,8 +20,8 @@ namespace SpatialInvasor
             // inverse le signe de la valeure pour que le laser se déplace vers le haut
             ShootingSpeed = ~ShootingSpeed;
 
-            Position = new Vector2(250, 400);
-            Limits = new float[2] { 250f, 700f };
+            Position = new Vector2(350, 400);
+            
 
             SheetPositions = new List<Rectangle>()
             {
