@@ -7,31 +7,32 @@ namespace SpatialInvasor
 {
     public class Octopus : Alien
     {
-        
-
         public Octopus(MainGame game) : base(game)
         {
+            Position = new Vector2(271, 130);
             SheetPositions = new List<Rectangle>()
             {
-                new Rectangle(36, 1, 36, 24)
+                new Rectangle(36, 1, 36, 24),
+                new Rectangle(36, 26, 36, 24)                
             };
         }
 
         public override Vector2 GetCenterPosition()
         {
-            throw new NotImplementedException();
+            return Position + new Vector2(18, 5);
         }
 
         public override void Draw(GameTime gameTime)
         {
+            int indexSheetPositions = (int)(gameTime.TotalGameTime.TotalSeconds % countDuration);
             SpriteBatch.Begin();
-            SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[0], Color.Purple);
+            SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[indexSheetPositions], Color.Purple);
             SpriteBatch.End();
         }
-
-        protected override void Move(GameTime gametime)
+        public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            Move(gameTime);
+            Shoot();
         }
     }
 }

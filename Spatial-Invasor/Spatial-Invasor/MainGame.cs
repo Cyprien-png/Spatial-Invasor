@@ -36,7 +36,7 @@ namespace SpatialInvasor
         protected override void Initialize()
         {
             Components.Add(new Playfield(this));
-            Components.Add(player);
+            Components.Add(player);            
             foreach (Wall wall in _walls) {
                 Components.Add(wall);
             }
