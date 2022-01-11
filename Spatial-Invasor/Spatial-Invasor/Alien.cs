@@ -47,5 +47,10 @@ namespace SpatialInvasor
                 }
             }
         }
+
+        public void killAlien()
+        {
+            Game.Components.Remove(this);
+        }
     }
 }

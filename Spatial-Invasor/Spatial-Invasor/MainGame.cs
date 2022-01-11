@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 namespace SpatialInvasor
 {
@@ -13,12 +14,32 @@ namespace SpatialInvasor
         private Player player;
         private List<LaserShot> _laserList;
         private List<Wall> _walls;
+        private List<Crab> _crabs;
+        private List<Squid> _squids;
+        private List<Octopus> _octopus;
 
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            _crabs = new List<Crab>()
+            {
+                new Crab(this)
+            };
+
+            _squids = new List<Squid>()
+            {
+                new Squid(this)
+            };
+
+            _octopus = new List<Octopus>()
+            {
+                new Octopus(this)
+
+            };
+
             _walls = new List<Wall>()
             {
                 new Wall(this, new Vector2(300, 350)),
@@ -31,16 +52,35 @@ namespace SpatialInvasor
             _laserList = new List<LaserShot>() {
                 new LaserShot(this, player)
             };
+            
         }
 
         protected override void Initialize()
         {
             Components.Add(new Playfield(this));
-            Components.Add(player);            
+            Components.Add(player);
+            
+            foreach (Crab crab in _crabs)
+            {
+                Components.Add(crab);
+            }
+
+            foreach (Squid squid in _squids)
+            {
+                Components.Add(squid);
+            }
+
+            foreach (Octopus octopus in _octopus)
+            {
+                Components.Add(octopus);
+            }
+
             foreach (Wall wall in _walls) {
                 Components.Add(wall);
             }
             base.Initialize();
+
+            
         }
 
         public void addShot(LaserShot laserShot)
@@ -55,6 +95,52 @@ namespace SpatialInvasor
 
             List<LaserShot> lasersToKill = new List<LaserShot>();
             List<Wall> wallsToKill = new List<Wall>();
+            List<Crab> crabsToKill = new List<Crab>();
+            List<Squid> squidsToKill = new List<Squid>();
+            List<Octopus> octopusToKill = new List<Octopus>();
+
+            foreach (LaserShot laser in _laserList)
+            {
+                foreach (Crab crab in _crabs)
+                {
+                    if (crab.Hitbox.Intersects(laser.Hitbox))
+                    {
+                        laser.killLaser();
+                        crab.killAlien();
+                        lasersToKill.Add(laser);
+                        crabsToKill.Add(crab);
+                    }
+                }
+
+                foreach (Squid squid in _squids)
+                {
+                    if (squid.Hitbox.Intersects(laser.Hitbox))
+                    {
+                        laser.killLaser();
+                        squid.killAlien();
+                        lasersToKill.Add(laser);
+                        squidsToKill.Add(squid);
+                    }
+                }
+
+                foreach (Octopus octopus in _octopus)
+                {
+                    if (octopus.Hitbox.Intersects(laser.Hitbox))
+                    {
+                        laser.killLaser();
+                        octopus.killAlien();
+                        lasersToKill.Add(laser);
+                        octopusToKill.Add(octopus);
+                    }
+                }
+
+                _laserList = _laserList.Except(lasersToKill).ToList();
+                _crabs = _crabs.Except(crabsToKill).ToList();
+                _squids = _squids.Except(squidsToKill).ToList();
+                _octopus = _octopus.Except(octopusToKill).ToList();
+            }
+
+
             foreach (Wall wall in _walls)
             {
                 foreach (LaserShot laser in _laserList)
