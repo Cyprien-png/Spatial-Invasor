@@ -104,7 +104,7 @@ namespace SpatialInvasor
             {
                 foreach (Crab crab in _crabs)
                 {
-                    if (crab.Hitbox.Intersects(laser.Hitbox))
+                    if (crab.Hitbox.Intersects(laser.Hitbox) && laser.Shooter == player)
                     {
                         laser.killLaser();
                         crab.killAlien();
@@ -115,7 +115,7 @@ namespace SpatialInvasor
 
                 foreach (Squid squid in _squids)
                 {
-                    if (squid.Hitbox.Intersects(laser.Hitbox))
+                    if (squid.Hitbox.Intersects(laser.Hitbox) && laser.Shooter == player)
                     {
                         laser.killLaser();
                         squid.killAlien();
@@ -126,12 +126,26 @@ namespace SpatialInvasor
 
                 foreach (Octopus octopus in _octopus)
                 {
-                    if (octopus.Hitbox.Intersects(laser.Hitbox))
+                    if (octopus.Hitbox.Intersects(laser.Hitbox) && laser.Shooter == player)
                     {
                         laser.killLaser();
                         octopus.killAlien();
                         lasersToKill.Add(laser);
                         octopusToKill.Add(octopus);
+                    }
+                }
+
+                foreach (LaserShot secondLaser in _laserList)
+                {
+                    if(laser != secondLaser)
+                    {
+                        if (laser.Hitbox.Intersects(secondLaser.Hitbox))
+                        {
+                            laser.killLaser();
+                            secondLaser.killLaser();
+                            lasersToKill.Add(laser);
+                            lasersToKill.Add(secondLaser);
+                        }
                     }
                 }
 
