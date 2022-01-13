@@ -45,6 +45,11 @@ namespace SpatialInvasor
             SpriteBatch.End();
         }
 
+        public Creature Shooter
+        {
+           get{ return _shooter; }
+        }
+
         public void killLaser()
         {
             Game.Components.Remove(this);
