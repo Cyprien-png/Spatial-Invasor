@@ -14,7 +14,7 @@ namespace SpatialInvasor
 
         public override bool IsPressingTrigger()
         {
-            return new Random().Next(1000000) == 1;
+            return new Random().Next(100000) == 1;
         }
 
         protected void TouchLimit(GameTime gameTime)

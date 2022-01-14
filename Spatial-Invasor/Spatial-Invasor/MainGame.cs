@@ -60,28 +60,13 @@ namespace SpatialInvasor
         {
             Components.Add(new Playfield(this));
             Components.Add(player);
-            
-            foreach (Crab crab in _crabs)
-            {
-                Components.Add(crab);
-            }
 
-            foreach (Squid squid in _squids)
-            {
-                Components.Add(squid);
-            }
+            _crabs.ForEach(crab => Components.Add(crab));
+            _squids.ForEach(squid => Components.Add(squid));
+            _octopus.ForEach(octopus => Components.Add(octopus));
+            _walls.ForEach(wall => Components.Add(wall));
 
-            foreach (Octopus octopus in _octopus)
-            {
-                Components.Add(octopus);
-            }
-
-            foreach (Wall wall in _walls) {
-                Components.Add(wall);
-            }
             base.Initialize();
-
-            
         }
 
         public void addShot(LaserShot laserShot)
@@ -149,6 +134,12 @@ namespace SpatialInvasor
                     }
                 }
 
+                if (laser.Hitbox.Intersects(player.Hitbox) && laser.Shooter != player)
+                {
+                    laser.killLaser();
+                    player.kill();
+                }
+
                 _laserList = _laserList.Except(lasersToKill).ToList();
                 _crabs = _crabs.Except(crabsToKill).ToList();
                 _squids = _squids.Except(squidsToKill).ToList();
@@ -172,7 +163,6 @@ namespace SpatialInvasor
                     _walls = _walls.Except(wallsToKill).ToList();
             }
             _laserList = _laserList.Except(lasersToKill).ToList();
-
 
 
             base.Update(gameTime);

@@ -84,5 +84,10 @@ namespace SpatialInvasor
             SpriteBatch.End();
         }
 
+        public void kill()
+        {
+            Game.Components.Remove(this);
+        }
+
     }
 }
