@@ -18,6 +18,13 @@ namespace SpatialInvasor
         private List<Squid> _squids;
         private List<Octopus> _octopus;
 
+        private enum _gameStates { 
+            MainMenu,
+            Gameplay,
+        }
+
+        _gameStates _state;
+
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -74,11 +81,8 @@ namespace SpatialInvasor
             _laserList.Add(laserShot);
         }
 
-        protected override void Update(GameTime gameTime)
+        private void UpdateGameplay()
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             List<LaserShot> lasersToKill = new List<LaserShot>();
             List<Wall> wallsToKill = new List<Wall>();
             List<Crab> crabsToKill = new List<Crab>();
@@ -122,7 +126,7 @@ namespace SpatialInvasor
 
                 foreach (LaserShot secondLaser in _laserList)
                 {
-                    if(laser != secondLaser)
+                    if (laser != secondLaser)
                     {
                         if (laser.Hitbox.Intersects(secondLaser.Hitbox))
                         {
@@ -163,6 +167,27 @@ namespace SpatialInvasor
                     _walls = _walls.Except(wallsToKill).ToList();
             }
             _laserList = _laserList.Except(lasersToKill).ToList();
+        }
+
+        private void UpdateMainMenu() { 
+            
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+            switch (_state) {
+                case _gameStates.Gameplay:
+                    UpdateGameplay();
+                    break;
+                case _gameStates.MainMenu:
+                    UpdateMainMenu();
+                    break;
+            }
+
+            
 
 
             base.Update(gameTime);
