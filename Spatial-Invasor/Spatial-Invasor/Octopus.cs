@@ -9,7 +9,7 @@ namespace SpatialInvasor
     {
         public Octopus(MainGame game) : base(game)
         {
-            Position = new Vector2(271, 130);
+            Position = new Vector2(Limits[0] + 10, 130);
             SheetPositions = new List<Rectangle>()
             {
                 new Rectangle(36, 1, 36, 24),

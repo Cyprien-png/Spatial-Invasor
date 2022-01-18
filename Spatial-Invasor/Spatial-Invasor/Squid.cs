@@ -9,7 +9,7 @@ namespace SpatialInvasor
     {        
         public Squid(MainGame game) : base(game)
         {
-            Position = new Vector2(277, 160);
+            Position = new Vector2(Limits[0] + 16, 160);
             SheetPositions = new List<Rectangle>()
             {
                 new Rectangle(73, 1, 24, 24),

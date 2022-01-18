@@ -5,11 +5,11 @@ using Microsoft.Xna.Framework;
 
 namespace SpatialInvasor
 {
-    class UFO : Alien
+    public class UFO : Alien
     {
         public UFO(MainGame game) : base(game)
         {
-            Position = new Vector2(277, 70);
+            Position = new Vector2(Limits[0] + 10, 70);
             Speed = 150f;
             SheetPositions = new List<Rectangle>()
             {
