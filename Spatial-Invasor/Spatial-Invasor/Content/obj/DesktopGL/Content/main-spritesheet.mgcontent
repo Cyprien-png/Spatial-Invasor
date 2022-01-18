@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/Cyprien.JAQUIER/Documents/GitHub/Spatial-Invasor/Spatial-Invasor/Spatial-Invasor/Content/main-spritesheet.png</SourceFile>
-  <SourceTime>2021-12-09T10:08:35.8472209+01:00</SourceTime>
-  <DestFile>C:/Users/Cyprien.JAQUIER/Documents/GitHub/Spatial-Invasor/Spatial-Invasor/Spatial-Invasor/Content/bin/DesktopGL/Content/main-spritesheet.xnb</DestFile>
-  <DestTime>2022-01-11T14:20:57.3289841+01:00</DestTime>
+  <SourceFile>C:/Users/loik.meylan/Documents/GitHub/Spatial-Invasor/Spatial-Invasor/Spatial-Invasor/Content/main-spritesheet.png</SourceFile>
+  <SourceTime>2021-12-17T11:13:19.1205167+01:00</SourceTime>
+  <DestFile>C:/Users/loik.meylan/Documents/GitHub/Spatial-Invasor/Spatial-Invasor/Spatial-Invasor/Content/bin/DesktopGL/Content/main-spritesheet.xnb</DestFile>
+  <DestTime>2022-01-14T08:45:52.6408468+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

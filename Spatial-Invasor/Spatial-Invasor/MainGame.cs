@@ -17,6 +17,11 @@ namespace SpatialInvasor
         private List<Crab> _crabs;
         private List<Squid> _squids;
         private List<Octopus> _octopus;
+        private UFO _ufo;
+
+        private double timeSinceLastSpawn = 0.0;
+
+        private const double SPAWN_UFO_PERIOD = 1.0;
 
         public MainGame()
         {
@@ -53,7 +58,8 @@ namespace SpatialInvasor
             _laserList = new List<LaserShot>() {
                 new LaserShot(this, player)
             };
-            
+
+            _ufo = new UFO(this);
         }
 
         protected override void Initialize()
@@ -73,11 +79,19 @@ namespace SpatialInvasor
         {
             _laserList.Add(laserShot);
         }
-
+        
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            Debug.WriteLine(gameTime.TotalGameTime.TotalMinutes);
+            
+            if (timeSinceLastSpawn + SPAWN_UFO_PERIOD <= gameTime.TotalGameTime.TotalMinutes) {
+                _ufo = new UFO(this);
+                Components.Add(_ufo);
+                timeSinceLastSpawn = gameTime.TotalGameTime.TotalMinutes;
+            }
 
             List<LaserShot> lasersToKill = new List<LaserShot>();
             List<Wall> wallsToKill = new List<Wall>();
@@ -140,12 +154,18 @@ namespace SpatialInvasor
                     player.kill();
                 }
 
+                if (_ufo.Hitbox.Intersects(laser.Hitbox) && laser.Shooter == player)
+                {
+                    laser.killLaser();
+                    _ufo.killAlien();
+                    lasersToKill.Add(laser);
+                }
+
                 _laserList = _laserList.Except(lasersToKill).ToList();
                 _crabs = _crabs.Except(crabsToKill).ToList();
                 _squids = _squids.Except(squidsToKill).ToList();
                 _octopus = _octopus.Except(octopusToKill).ToList();
             }
-
 
             foreach (Wall wall in _walls)
             {
@@ -163,7 +183,6 @@ namespace SpatialInvasor
                     _walls = _walls.Except(wallsToKill).ToList();
             }
             _laserList = _laserList.Except(lasersToKill).ToList();
-
 
             base.Update(gameTime);
         }

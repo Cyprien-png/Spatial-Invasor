@@ -5,18 +5,12 @@ using Microsoft.Xna.Framework;
 
 namespace SpatialInvasor
 {
-    class UFO : Alien
+    public class UFO : Alien
     {
         public UFO(MainGame game) : base(game)
         {
-            /*
-            Speed = 250f;
-
-            ShootingSpeed = 900f;
-
-            Position = new Vector2(250, 30);
-            Limits = new float[2] { 250f, 700f };
-            */
+            Position = new Vector2(Limits[0] + 10, 70);
+            Speed = 150f;
             SheetPositions = new List<Rectangle>()
             {
                 new Rectangle(100, 23, 48, 21)
@@ -25,20 +19,34 @@ namespace SpatialInvasor
 
         public override Vector2 GetCenterPosition()
         {
-            throw new NotImplementedException();
-        }
+            return Position + new Vector2(24, 5);
+        }        
 
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.Begin();
-            SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[0], Color.Red);
+            SpriteBatch.Begin();                        
+            SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[0], Color.Red);                        
             SpriteBatch.End();
         }
 
-        protected override void Move(GameTime gametime)
+        protected override void TouchLimit(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            if (Position.X > Limits[1])
+            {
+                Game.Components.Remove(this);
+            }
+            
+        }
+
+        protected override void Move(GameTime gameTime)
+        {            
+            Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            TouchLimit(gameTime);                        
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            Move(gameTime);
         }
     }
 }
-

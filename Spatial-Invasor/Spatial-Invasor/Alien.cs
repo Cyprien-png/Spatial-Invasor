@@ -17,19 +17,19 @@ namespace SpatialInvasor
             return new Random().Next(100000) == 1;
         }
 
-        protected void TouchLimit(GameTime gameTime)
+        protected virtual void TouchLimit(GameTime gameTime)
         {
             if (Position.X > Limits[1])
             {
                 Position.Y += 20f;
-                Direction = false;
+                Direction = true;
             }
             else if (Position.X < Limits[0])
             {
                 Position.Y += 20f;
-                Direction = true;
+                Direction = false;
             }
-        }
+        }       
 
         protected override void Move(GameTime gameTime)
         {
