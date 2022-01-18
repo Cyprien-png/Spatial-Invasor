@@ -11,12 +11,12 @@ namespace SpatialInvasor
     public abstract class Text : Entity
     {
         protected string DrawingText;
-        public int Value;
+        
         protected SpriteFont font;
 
-        public Text(Game game, int value) : base(game)
+        public Text(Game game) : base(game)
         {
-
+            
         }
 
         protected override void LoadContent()
@@ -35,8 +35,10 @@ namespace SpatialInvasor
 
     public class Score : Text
     {
-        public Score(Game game, int value) : base(game, value)
+        public int Value;
+        public Score(Game game, int value) : base(game)
         {
+            Value = value;
             DrawingText = "Score : " + Value;
             Position = new Vector2(100, 430);
         }
@@ -54,8 +56,10 @@ namespace SpatialInvasor
 
     public class Life : Text
     {
-        public Life(Game game, int value) : base(game, value)
+        public int Value;
+        public Life(Game game, int value) : base(game)
         {
+            Value = value;
             DrawingText = "Vies : " + Value;
             Position = new Vector2(300, 430);
         }
@@ -73,24 +77,25 @@ namespace SpatialInvasor
 
     public class MenuText : Text {
         public bool ISChoosen;
-        private bool WasChoosenLast;
-        public MenuText(Game game, int value) : base(game, value)
-        {
-            DrawingText = "Vies : " + Value;
-            Position = new Vector2(300, 430);
-        }
+        private bool _wasChoosenLast;
 
-        public void DecreaseLife()
+        private string _originalText;
+
+        public MenuText(Game game, string originalText) : base(game)
         {
-            Value -= 1;
+            _originalText = DrawingText;
+            Position = new Vector2(300, 430);
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (ISChoosen && !WasChoosenLast)
+            if (ISChoosen && !_wasChoosenLast)
             {
                 DrawingText = ">" + DrawingText;
-                WasChoosenLast = true;
+                _wasChoosenLast = true;
+            }
+            else  {
+                DrawingText = _originalText;
             }
             
             
