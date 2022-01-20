@@ -9,6 +9,7 @@ namespace SpatialInvasor
     {
         public UFO(MainGame game) : base(game)
         {
+            ScoreValue = 50;
             Position = new Vector2(Limits[0] + 10, 70);
             Speed = 150f;
             SheetPositions = new List<Rectangle>()
@@ -20,7 +21,12 @@ namespace SpatialInvasor
         public override Vector2 GetCenterPosition()
         {
             return Position + new Vector2(24, 5);
-        }        
+        }
+
+        public int GetScoreValue
+        {
+            get { return ScoreValue; }
+        }
 
         public override void Draw(GameTime gameTime)
         {

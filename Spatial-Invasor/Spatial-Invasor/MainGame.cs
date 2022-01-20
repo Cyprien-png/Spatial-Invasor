@@ -19,9 +19,9 @@ namespace SpatialInvasor
         private List<Octopus> _octopus;
         private UFO _ufo;
 
-        private double timeSinceLastSpawn = 0.0;
-
+        private double _timeSinceLastSpawn = 0.0;
         private const double SPAWN_UFO_PERIOD = 1.0;
+        private int _maxScore;
 
         public MainGame()
         {
@@ -84,13 +84,11 @@ namespace SpatialInvasor
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            Debug.WriteLine(gameTime.TotalGameTime.TotalMinutes);
             
-            if (timeSinceLastSpawn + SPAWN_UFO_PERIOD <= gameTime.TotalGameTime.TotalMinutes) {
+            if (_timeSinceLastSpawn + SPAWN_UFO_PERIOD <= gameTime.TotalGameTime.TotalMinutes) {
                 _ufo = new UFO(this);
                 Components.Add(_ufo);
-                timeSinceLastSpawn = gameTime.TotalGameTime.TotalMinutes;
+                _timeSinceLastSpawn = gameTime.TotalGameTime.TotalMinutes;
             }
 
             List<LaserShot> lasersToKill = new List<LaserShot>();
@@ -109,6 +107,7 @@ namespace SpatialInvasor
                         crab.killAlien();
                         lasersToKill.Add(laser);
                         crabsToKill.Add(crab);
+                        _maxScore += crab.GetScoreValue;
                     }
                 }
 
@@ -120,6 +119,7 @@ namespace SpatialInvasor
                         squid.killAlien();
                         lasersToKill.Add(laser);
                         squidsToKill.Add(squid);
+                        _maxScore += squid.GetScoreValue;
                     }
                 }
 
@@ -131,6 +131,7 @@ namespace SpatialInvasor
                         octopus.killAlien();
                         lasersToKill.Add(laser);
                         octopusToKill.Add(octopus);
+                        _maxScore += octopus.GetScoreValue;
                     }
                 }
 
@@ -159,6 +160,7 @@ namespace SpatialInvasor
                     laser.killLaser();
                     _ufo.killAlien();
                     lasersToKill.Add(laser);
+                    _maxScore += _ufo.GetScoreValue;
                 }
 
                 _laserList = _laserList.Except(lasersToKill).ToList();

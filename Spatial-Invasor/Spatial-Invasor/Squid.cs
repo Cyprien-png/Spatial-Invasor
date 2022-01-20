@@ -6,9 +6,10 @@ using Microsoft.Xna.Framework;
 namespace SpatialInvasor
 {
     class Squid : Alien
-    {        
+    {
         public Squid(MainGame game) : base(game)
         {
+            ScoreValue = 30;
             Position = new Vector2(Limits[0] + 16, 160);
             SheetPositions = new List<Rectangle>()
             {
@@ -20,6 +21,11 @@ namespace SpatialInvasor
         public override Vector2 GetCenterPosition()
         {
             return Position + new Vector2(12, 5);
+        }
+
+        public int GetScoreValue
+        {
+            get { return ScoreValue; }
         }
 
         public override void Draw(GameTime gameTime)

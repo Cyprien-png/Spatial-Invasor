@@ -5,9 +5,10 @@ using System.Collections.Generic;
 namespace SpatialInvasor
 {
     public class Crab : Alien
-    {        
+    {
         public Crab(MainGame game) : base(game)
         {
+            ScoreValue = 20;
             Position = new Vector2(Limits[0] + 12, 100);
             SheetPositions = new List<Rectangle>()
             {
@@ -19,6 +20,11 @@ namespace SpatialInvasor
         public override Vector2 GetCenterPosition()
         {
             return Position + new Vector2(16, 5);
+        }
+
+        public int GetScoreValue
+        {
+            get { return ScoreValue; }
         }
 
         public override void Draw(GameTime gameTime)
