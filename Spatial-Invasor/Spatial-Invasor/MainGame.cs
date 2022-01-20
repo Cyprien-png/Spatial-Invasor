@@ -74,6 +74,8 @@ namespace SpatialInvasor
                 ChangeComponentState(component, false);
             }
 
+            SwitchScene(MainMenu);
+
             base.Initialize();
         }
 
@@ -83,10 +85,15 @@ namespace SpatialInvasor
             if (component is DrawableGameComponent)
                 ((DrawableGameComponent)component).Visible = enabled;
         }
+
         public void SwitchScene(GameScene scene)
         {
             GameComponent[] usedComponents = scene.ReturnComponents();
-
+            foreach (GameComponent component in Components)
+            {
+                bool isUsed = usedComponents.Contains(component);
+                ChangeComponentState(component, isUsed);
+            }
         }
 
 
@@ -187,26 +194,12 @@ namespace SpatialInvasor
             
         }
 
-        private void InitializeMainMenu() {
-            MenuText a = new MenuText(this, "Ok text");
-            Components.Add(a);
-        }
+        
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            switch (_state) {
-                case _gameStates.Gameplay:
-                    UpdateGameplay();
-                    break;
-                case _gameStates.MainMenu:
-                    UpdateMainMenu();
-                    break;
-            }
-
-            
 
 
             base.Update(gameTime);
