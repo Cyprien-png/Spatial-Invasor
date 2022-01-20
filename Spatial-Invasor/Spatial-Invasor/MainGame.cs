@@ -10,7 +10,6 @@ namespace SpatialInvasor
     public class MainGame : Game
     {
         private GraphicsDeviceManager _graphics;
-        List<Vector2> WallPositions;
         private Player player;
         private List<LaserShot> _laserList;
         private List<Wall> _walls;
