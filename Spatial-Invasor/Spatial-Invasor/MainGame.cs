@@ -18,12 +18,7 @@ namespace SpatialInvasor
         private List<Squid> _squids;
         private List<Octopus> _octopus;
 
-        private enum _gameStates { 
-            MainMenu,
-            Gameplay,
-        }
-
-        _gameStates _state;
+        public GameScene MainMenu;
 
         public MainGame()
         {
@@ -73,8 +68,27 @@ namespace SpatialInvasor
             _octopus.ForEach(octopus => Components.Add(octopus));
             _walls.ForEach(wall => Components.Add(wall));
 
+            MainMenu = new GameScene(this, player);
+            foreach (GameComponent component in Components)
+            {
+                ChangeComponentState(component, false);
+            }
+
             base.Initialize();
         }
+
+        private void ChangeComponentState(GameComponent component, bool enabled)
+        {
+            component.Enabled = enabled;
+            if (component is DrawableGameComponent)
+                ((DrawableGameComponent)component).Visible = enabled;
+        }
+        public void SwitchScene(GameScene scene)
+        {
+            GameComponent[] usedComponents = scene.ReturnComponents();
+
+        }
+
 
         public void addShot(LaserShot laserShot)
         {
@@ -171,6 +185,11 @@ namespace SpatialInvasor
 
         private void UpdateMainMenu() { 
             
+        }
+
+        private void InitializeMainMenu() {
+            MenuText a = new MenuText(this, "Ok text");
+            Components.Add(a);
         }
 
         protected override void Update(GameTime gameTime)

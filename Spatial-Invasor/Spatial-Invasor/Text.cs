@@ -94,7 +94,7 @@ namespace SpatialInvasor
                 DrawingText = ">" + DrawingText;
                 _wasChoosenLast = true;
             }
-            else  {
+            else if(!ISChoosen)  {
                 DrawingText = _originalText;
             }
             
