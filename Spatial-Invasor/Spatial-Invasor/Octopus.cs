@@ -9,6 +9,7 @@ namespace SpatialInvasor
     {
         public Octopus(MainGame game) : base(game)
         {
+            ScoreValue = 10;
             Position = new Vector2(Limits[0] + 10, 130);
             SheetPositions = new List<Rectangle>()
             {
@@ -20,6 +21,11 @@ namespace SpatialInvasor
         public override Vector2 GetCenterPosition()
         {
             return Position + new Vector2(18, 5);
+        }
+
+        public int GetScoreValue
+        {
+            get { return ScoreValue; }
         }
 
         public override void Draw(GameTime gameTime)

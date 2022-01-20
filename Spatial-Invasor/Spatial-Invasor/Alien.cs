@@ -7,6 +7,9 @@ namespace SpatialInvasor
     {
         protected float countDuration = 2f;
         protected bool Direction;
+        protected int ScoreValue;
+
+        protected static Random random = new Random();
 
         public Alien(MainGame game) : base(game) {
             Speed = 250f;
@@ -14,19 +17,19 @@ namespace SpatialInvasor
 
         public override bool IsPressingTrigger()
         {
-            return new Random().Next(100000) == 1;
+            return random.Next(100000) == 1;
         }
 
         protected virtual void TouchLimit(GameTime gameTime)
         {
             if (Position.X > Limits[1])
             {
-                Position.Y += 20f;
+                Position.Y += 24f;
                 Direction = true;
             }
             else if (Position.X < Limits[0])
             {
-                Position.Y += 20f;
+                Position.Y += 24f;
                 Direction = false;
             }
         }       
