@@ -20,7 +20,7 @@ namespace SpatialInvasor
         }
 
         private bool isInBounds() {
-            return (Position.Y >= 0 && Position.Y <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+            return (Position.Y >= 0 && Position.Y <= 420);
         }
 
         public override void Update(GameTime gameTime)
@@ -34,7 +34,8 @@ namespace SpatialInvasor
             else
             {
                 // TODO : Implémenter un ajout de score si un alien est touché
-                killLaser();
+                Kill();
+                
             }
         }
 
@@ -48,11 +49,6 @@ namespace SpatialInvasor
         public Creature Shooter
         {
            get{ return _shooter; }
-        }
-
-        public void killLaser()
-        {
-            Game.Components.Remove(this);
         }
     }
 }

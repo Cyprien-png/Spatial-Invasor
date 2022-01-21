@@ -33,6 +33,13 @@ namespace SpatialInvasor
             SpriteSheet = Game.Content.Load<Texture2D>("main-spritesheet");
             SpriteBatch = new SpriteBatch(Game.GraphicsDevice);
         }
+
+
+
+        public void Kill()
+        {
+            Game.Components.Remove(this);
+        }
     }
 
 }

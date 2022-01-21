@@ -7,9 +7,9 @@ namespace SpatialInvasor
 {
     class Squid : Alien
     {        
-        public Squid(MainGame game) : base(game)
+        public Squid(MainGame game, int spawnX, int spawnY) : base(game)
         {
-            Position = new Vector2(277, 160);
+            Position = new Vector2(spawnX, spawnY);
             SheetPositions = new List<Rectangle>()
             {
                 new Rectangle(73, 1, 24, 24),

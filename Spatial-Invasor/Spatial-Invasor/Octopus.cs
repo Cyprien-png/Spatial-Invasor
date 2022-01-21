@@ -7,9 +7,9 @@ namespace SpatialInvasor
 {
     public class Octopus : Alien
     {
-        public Octopus(MainGame game) : base(game)
+        public Octopus(MainGame game, int spawnX, int spawnY) : base(game)
         {
-            Position = new Vector2(271, 130);
+            Position = new Vector2(spawnX, spawnY);
             SheetPositions = new List<Rectangle>()
             {
                 new Rectangle(36, 1, 36, 24),

@@ -6,51 +6,35 @@ namespace SpatialInvasor
     public abstract class Alien : Creature
     {
         protected float countDuration = 2f;
-        protected bool Direction;
+        protected float directionFactor = 1f;
 
         public Alien(MainGame game) : base(game) {
-            Speed = 250f;
+            Speed = 500f;
         }
 
         public override bool IsPressingTrigger()
         {
-            return new Random().Next(100000) == 1;
+            return new Random().Next(1) == 0;
         }
 
-        protected void TouchLimit(GameTime gameTime)
+        public bool TouchLimit(GameTime gameTime)
         {
-            if (Position.X > Limits[1])
-            {
-                Position.Y += 20f;
-                Direction = false;
-            }
-            else if (Position.X < Limits[0])
-            {
-                Position.Y += 20f;
-                Direction = true;
-            }
+            return (Position.X > Limits[1] || Position.X < Limits[0]);
+        }
+
+        public void ChangeDirection(GameTime gameTime)
+        {
+            Position.Y += 20f;
+            directionFactor = directionFactor * -1;
+            Position.X += directionFactor * 1941.25f * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         protected override void Move(GameTime gameTime)
         {
             if ((gameTime.TotalGameTime.TotalSeconds % (countDuration / 2)) < 0.01)
             {
-                if (Direction)
-                {
-                    Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    TouchLimit(gameTime);
-                }
-                else
-                {
-                    Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    TouchLimit(gameTime);
-                }
+                    Position.X += directionFactor * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-        }
-
-        public void killAlien()
-        {
-            Game.Components.Remove(this);
         }
     }
 }
