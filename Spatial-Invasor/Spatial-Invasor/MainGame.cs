@@ -10,65 +10,75 @@ namespace SpatialInvasor
     public class MainGame : Game
     {
         private GraphicsDeviceManager _graphics;
-        private Player player;
+
+
+        private Player _player;
         private List<LaserShot> _laserList;
         private List<Wall> _walls;
-        private List<Crab> _crabs;
-        private List<Squid> _squids;
-        private List<Octopus> _octopus;
+        private List<Alien> _aliens;
         private UFO _ufo;
 
         private double _timeSinceLastSpawn = 0.0;
         private const double SPAWN_UFO_PERIOD = 1.0;
         private int _maxScore;
 
+
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            int positionX = 0;
+            _aliens = new List<Alien>();
+            _player = new Player(this);
+            _ufo = new UFO(this);
 
-            _crabs = new List<Crab>()
+
+            positionX = 103;
+            for (int i = 0; i < 15; i++)
             {
-                new Crab(this)
-            };
+                Crab crab = new Crab(this, positionX, 100);
+                _aliens.Add(crab);
+                positionX += 35;
+            }
 
-            _squids = new List<Squid>()
+            positionX = 106;
+            for (int i = 0; i < 18; i++)
             {
-                new Squid(this)
-            };
+                Squid squid = new Squid(this, positionX, 130);
+                _aliens.Add(squid);
+                positionX += 29;
+            }
 
-            _octopus = new List<Octopus>()
+            positionX = 101;
+            for (int i = 0; i < 14; i++)
             {
-                new Octopus(this)
+                Octopus octopus = new Octopus(this, positionX, 160);
+                _aliens.Add(octopus);
+                positionX += 38;
+            }
 
-            };
-
-            _walls = new List<Wall>()
+            positionX = 75;
+            _walls = new List<Wall>();
+            for (int i = 0; i < 5; i++)
             {
-                new Wall(this, new Vector2(75, 350)),
-                new Wall(this, new Vector2(225, 350)),
-                new Wall(this, new Vector2(375, 350)),
-                new Wall(this, new Vector2(525, 350)),
-                new Wall(this, new Vector2(675, 350))
-            };
-            player = new Player(this);
+                _walls.Add(new Wall(this, new Vector2(positionX, 350)));
+                positionX += 150;
+            }
+
+            
 
             _laserList = new List<LaserShot>() {
-                new LaserShot(this, player)
-            };
-
-            _ufo = new UFO(this);
+                new LaserShot(this, _player)
+            };   
         }
 
         protected override void Initialize()
         {
             Components.Add(new Playfield(this));
-            Components.Add(player);
+            Components.Add(_player);
 
-            _crabs.ForEach(crab => Components.Add(crab));
-            _squids.ForEach(squid => Components.Add(squid));
-            _octopus.ForEach(octopus => Components.Add(octopus));
+            _aliens.ForEach(alien => Components.Add(alien));
             _walls.ForEach(wall => Components.Add(wall));
 
             base.Initialize();
@@ -92,98 +102,77 @@ namespace SpatialInvasor
 
             List<LaserShot> lasersToKill = new List<LaserShot>();
             List<Wall> wallsToKill = new List<Wall>();
-            List<Crab> crabsToKill = new List<Crab>();
-            List<Squid> squidsToKill = new List<Squid>();
-            List<Octopus> octopusToKill = new List<Octopus>();
+            List<Alien> aliensToKill = new List<Alien>();
+            bool isTouchingLimit = false;
 
             foreach (LaserShot laser in _laserList)
             {
-                foreach (Crab crab in _crabs)
+                foreach (Alien alien in _aliens)
                 {
-                    if (crab.Hitbox.Intersects(laser.Hitbox) && laser.Shooter == player)
+                    if (alien.Hitbox.Intersects(laser.Hitbox) && laser.Shooter == _player)
                     {
-                        laser.killLaser();
-                        crab.killAlien();
+                        laser.Kill();
+                        alien.Kill();
                         lasersToKill.Add(laser);
-                        crabsToKill.Add(crab);
-                        _maxScore += crab.GetScoreValue;
+                        aliensToKill.Add(alien);
                     }
-                }
 
-                foreach (Squid squid in _squids)
-                {
-                    if (squid.Hitbox.Intersects(laser.Hitbox) && laser.Shooter == player)
-                    {
-                        laser.killLaser();
-                        squid.killAlien();
-                        lasersToKill.Add(laser);
-                        squidsToKill.Add(squid);
-                        _maxScore += squid.GetScoreValue;
-                    }
-                }
+                    if (alien.TouchLimit(gameTime)) { isTouchingLimit = true; }
 
-                foreach (Octopus octopus in _octopus)
-                {
-                    if (octopus.Hitbox.Intersects(laser.Hitbox) && laser.Shooter == player)
-                    {
-                        laser.killLaser();
-                        octopus.killAlien();
-                        lasersToKill.Add(laser);
-                        octopusToKill.Add(octopus);
-                        _maxScore += octopus.GetScoreValue;
-                    }
+
                 }
 
                 foreach (LaserShot secondLaser in _laserList)
                 {
-                    if(laser != secondLaser)
+                    if (laser != secondLaser)
                     {
                         if (laser.Hitbox.Intersects(secondLaser.Hitbox))
                         {
-                            laser.killLaser();
-                            secondLaser.killLaser();
+                            laser.Kill();
+                            secondLaser.Kill();
                             lasersToKill.Add(laser);
                             lasersToKill.Add(secondLaser);
                         }
                     }
                 }
 
-                if (laser.Hitbox.Intersects(player.Hitbox) && laser.Shooter != player)
-                {
-                    laser.killLaser();
-                    player.kill();
-                }
-
-                if (_ufo.Hitbox.Intersects(laser.Hitbox) && laser.Shooter == player)
-                {
-                    laser.killLaser();
-                    _ufo.killAlien();
-                    lasersToKill.Add(laser);
-                    _maxScore += _ufo.GetScoreValue;
-                }
-
-                _laserList = _laserList.Except(lasersToKill).ToList();
-                _crabs = _crabs.Except(crabsToKill).ToList();
-                _squids = _squids.Except(squidsToKill).ToList();
-                _octopus = _octopus.Except(octopusToKill).ToList();
-            }
-
-            foreach (Wall wall in _walls)
-            {
-                foreach (LaserShot laser in _laserList)
+                foreach (Wall wall in _walls)
                 {
                     if (wall.Hitbox.Intersects(laser.Hitbox))
                     {
-                        laser.killLaser();
+                        laser.Kill();
                         wall.Hit();
                         lasersToKill.Add(laser);
-                        wallsToKill.Add(wall);
                     }
+                    if (wall.Life == 0)
+                        wallsToKill.Add(wall);
                 }
-                if (wall.Life == 0)
-                    _walls = _walls.Except(wallsToKill).ToList();
+
+
+                if (laser.Hitbox.Intersects(_player.Hitbox) && laser.Shooter != _player)
+                {
+                    laser.Kill();
+                    _player.kill();
+                }
+
+                _aliens = _aliens.Except(aliensToKill).ToList();
+                _laserList = _laserList.Except(lasersToKill).ToList();
+                _walls = _walls.Except(wallsToKill).ToList();
             }
-            _laserList = _laserList.Except(lasersToKill).ToList();
+
+            foreach (Alien alien in _aliens)
+            {
+                if (alien.TouchLimit(gameTime)) { isTouchingLimit = true; }
+            }
+
+            if (isTouchingLimit)
+            {
+                foreach (Alien aliens in _aliens)
+                {
+                    aliens.ChangeDirection(gameTime);
+                }
+            }
+
 
             base.Update(gameTime);
         }

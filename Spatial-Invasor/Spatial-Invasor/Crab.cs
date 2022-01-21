@@ -6,10 +6,10 @@ namespace SpatialInvasor
 {
     public class Crab : Alien
     {
-        public Crab(MainGame game) : base(game)
+        public Crab(MainGame game, int spawnX, int spawnY) : base(game)
         {
+            Position = new Vector2(spawnX, spawnY);
             ScoreValue = 20;
-            Position = new Vector2(Limits[0] + 12, 100);
             SheetPositions = new List<Rectangle>()
             {
                 new Rectangle(1, 26, 33, 24),
@@ -22,14 +22,9 @@ namespace SpatialInvasor
             return Position + new Vector2(16, 5);
         }
 
-        public int GetScoreValue
-        {
-            get { return ScoreValue; }
-        }
-
         public override void Draw(GameTime gameTime)
         {
-            int indexSheetPositions = (int)(gameTime.TotalGameTime.TotalSeconds % countDuration);
+            int indexSheetPositions = (int)(gameTime.TotalGameTime.TotalSeconds % CountDuration);
             SpriteBatch.Begin();
             SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[indexSheetPositions], Color.LightBlue);
             SpriteBatch.End();

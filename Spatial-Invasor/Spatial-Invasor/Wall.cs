@@ -45,7 +45,7 @@ namespace SpatialInvasor
                         CurrentSheetPosition = SheetPositions[3];
                         break;
                     case 0 :
-                        Game.Components.Remove(this);
+                        Kill();
                     break;
                 }
         }
@@ -57,7 +57,7 @@ namespace SpatialInvasor
                 SpriteBatch.Begin();
                 SpriteBatch.Draw(SpriteSheet, Position, CurrentSheetPosition, Color.White);
                 SpriteBatch.End();
-            }
+            } 
         }
 
         public void Hit()

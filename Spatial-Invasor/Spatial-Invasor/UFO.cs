@@ -23,11 +23,6 @@ namespace SpatialInvasor
             return Position + new Vector2(24, 5);
         }
 
-        public int GetScoreValue
-        {
-            get { return ScoreValue; }
-        }
-
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch.Begin();                        
@@ -35,7 +30,7 @@ namespace SpatialInvasor
             SpriteBatch.End();
         }
 
-        protected override void TouchLimit(GameTime gameTime)
+        protected void isOut(GameTime gameTime)
         {
             if (Position.X > Limits[1])
             {
@@ -47,7 +42,7 @@ namespace SpatialInvasor
         protected override void Move(GameTime gameTime)
         {            
             Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            TouchLimit(gameTime);                        
+            isOut(gameTime);                        
         }
 
         public override void Update(GameTime gameTime)

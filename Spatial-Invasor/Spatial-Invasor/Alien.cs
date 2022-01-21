@@ -5,55 +5,43 @@ namespace SpatialInvasor
 {
     public abstract class Alien : Creature
     {
-        protected float countDuration = 2f;
-        protected bool Direction;
+        protected float CountDuration = 2f;
+        protected float DirectionFactor = 1f;
         protected int ScoreValue;
 
-        protected static Random random = new Random();
-
-        public Alien(MainGame game) : base(game) {
-            Speed = 250f;
+        public Alien(MainGame game) : base(game)
+        {
+            Speed = 500f;
         }
 
         public override bool IsPressingTrigger()
         {
-            return random.Next(100000) == 1;
+            return new Random().Next(1500) == 0;
         }
 
-        protected virtual void TouchLimit(GameTime gameTime)
+        public bool TouchLimit(GameTime gameTime)
         {
-            if (Position.X > Limits[1])
-            {
-                Position.Y += 24f;
-                Direction = true;
-            }
-            else if (Position.X < Limits[0])
-            {
-                Position.Y += 24f;
-                Direction = false;
-            }
-        }       
+            return (Position.X > Limits[1] || Position.X < Limits[0]);
+        }
+
+        public void ChangeDirection(GameTime gameTime)
+        {
+            Position.Y += 20f;
+            DirectionFactor = DirectionFactor * -1;
+            Position.X += DirectionFactor * 2500 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
 
         protected override void Move(GameTime gameTime)
         {
-            if ((gameTime.TotalGameTime.TotalSeconds % (countDuration / 2)) < 0.01)
+            if ((gameTime.TotalGameTime.TotalSeconds % (CountDuration / 2)) < 0.01)
             {
-                if (Direction)
-                {
-                    Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    TouchLimit(gameTime);
-                }
-                else
-                {
-                    Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    TouchLimit(gameTime);
-                }
+                Position.X += DirectionFactor * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
         }
 
-        public void killAlien()
+        public int GetScoreValue
         {
-            Game.Components.Remove(this);
+            get { return ScoreValue; }
         }
     }
 }
