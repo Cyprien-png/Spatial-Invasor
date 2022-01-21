@@ -6,9 +6,10 @@ using Microsoft.Xna.Framework;
 namespace SpatialInvasor
 {
     class Squid : Alien
-    {        
+    {
         public Squid(MainGame game, int spawnX, int spawnY) : base(game)
         {
+            ScoreValue = 30;
             Position = new Vector2(spawnX, spawnY);
             SheetPositions = new List<Rectangle>()
             {
@@ -24,7 +25,7 @@ namespace SpatialInvasor
 
         public override void Draw(GameTime gameTime)
         {
-            int indexSheetPositions = (int)(gameTime.TotalGameTime.TotalSeconds % countDuration);
+            int indexSheetPositions = (int)(gameTime.TotalGameTime.TotalSeconds % CountDuration);
             SpriteBatch.Begin();
             SpriteBatch.Draw(SpriteSheet, Position, SheetPositions[indexSheetPositions], Color.LightGreen);
             SpriteBatch.End();

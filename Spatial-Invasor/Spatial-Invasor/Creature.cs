@@ -34,7 +34,7 @@ namespace SpatialInvasor
         public abstract Vector2 GetCenterPosition();
         public Creature(MainGame game) : base(game) {
             Limits = new float[2] { 40f, 750f };
-            ShootingSpeed =100; //400 par défaut
+            ShootingSpeed =250; //400 par défaut
         }
         // La façon de tirer change totalement entre le joueur et les aliens
         public abstract bool IsPressingTrigger();

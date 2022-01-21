@@ -5,16 +5,18 @@ namespace SpatialInvasor
 {
     public abstract class Alien : Creature
     {
-        protected float countDuration = 2f;
-        protected float directionFactor = 1f;
+        protected float CountDuration = 2f;
+        protected float DirectionFactor = 1f;
+        protected int ScoreValue;
 
-        public Alien(MainGame game) : base(game) {
+        public Alien(MainGame game) : base(game)
+        {
             Speed = 500f;
         }
 
         public override bool IsPressingTrigger()
         {
-            return new Random().Next(1) == 0;
+            return new Random().Next(1500) == 0;
         }
 
         public bool TouchLimit(GameTime gameTime)
@@ -25,16 +27,21 @@ namespace SpatialInvasor
         public void ChangeDirection(GameTime gameTime)
         {
             Position.Y += 20f;
-            directionFactor = directionFactor * -1;
-            Position.X += directionFactor * 1941.25f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            DirectionFactor = DirectionFactor * -1;
+            Position.X += DirectionFactor * 2500 * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         protected override void Move(GameTime gameTime)
         {
-            if ((gameTime.TotalGameTime.TotalSeconds % (countDuration / 2)) < 0.01)
+            if ((gameTime.TotalGameTime.TotalSeconds % (CountDuration / 2)) < 0.01)
             {
-                    Position.X += directionFactor * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                Position.X += DirectionFactor * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
+        }
+
+        public int GetScoreValue
+        {
+            get { return ScoreValue; }
         }
     }
 }

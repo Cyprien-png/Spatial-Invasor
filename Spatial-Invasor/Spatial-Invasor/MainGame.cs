@@ -10,10 +10,18 @@ namespace SpatialInvasor
     public class MainGame : Game
     {
         private GraphicsDeviceManager _graphics;
+
+
         private Player _player;
         private List<LaserShot> _laserList;
         private List<Wall> _walls;
         private List<Alien> _aliens;
+        private UFO _ufo;
+
+        private double _timeSinceLastSpawn = 0.0;
+        private const double SPAWN_UFO_PERIOD = 1.0;
+        private int _maxScore;
+
 
         public MainGame()
         {
@@ -23,6 +31,7 @@ namespace SpatialInvasor
             int positionX = 0;
             _aliens = new List<Alien>();
             _player = new Player(this);
+            _ufo = new UFO(this);
 
 
             positionX = 103;
@@ -32,7 +41,6 @@ namespace SpatialInvasor
                 _aliens.Add(crab);
                 positionX += 35;
             }
-
 
             positionX = 106;
             for (int i = 0; i < 18; i++)
@@ -62,8 +70,7 @@ namespace SpatialInvasor
 
             _laserList = new List<LaserShot>() {
                 new LaserShot(this, _player)
-            };
-
+            };   
         }
 
         protected override void Initialize()
@@ -81,11 +88,17 @@ namespace SpatialInvasor
         {
             _laserList.Add(laserShot);
         }
-
+        
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            
+            if (_timeSinceLastSpawn + SPAWN_UFO_PERIOD <= gameTime.TotalGameTime.TotalMinutes) {
+                _ufo = new UFO(this);
+                Components.Add(_ufo);
+                _timeSinceLastSpawn = gameTime.TotalGameTime.TotalMinutes;
+            }
 
             List<LaserShot> lasersToKill = new List<LaserShot>();
             List<Wall> wallsToKill = new List<Wall>();
@@ -105,8 +118,8 @@ namespace SpatialInvasor
                     }
 
                     if (alien.TouchLimit(gameTime)) { isTouchingLimit = true; }
-                    
-                        
+
+
                 }
 
                 foreach (LaserShot secondLaser in _laserList)
@@ -131,7 +144,7 @@ namespace SpatialInvasor
                         wall.Hit();
                         lasersToKill.Add(laser);
                     }
-                    if (wall.Life == 0) 
+                    if (wall.Life == 0)
                         wallsToKill.Add(wall);
                 }
 
@@ -142,15 +155,10 @@ namespace SpatialInvasor
                     _player.kill();
                 }
 
-                
                 _aliens = _aliens.Except(aliensToKill).ToList();
                 _laserList = _laserList.Except(lasersToKill).ToList();
                 _walls = _walls.Except(wallsToKill).ToList();
-
-
-                
             }
-
 
             foreach (Alien alien in _aliens)
             {
@@ -172,11 +180,6 @@ namespace SpatialInvasor
         protected override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-        }
-
-        public Player player
-        {
-            get { return _player; }
         }
     }
 }

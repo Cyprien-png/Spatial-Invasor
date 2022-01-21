@@ -34,8 +34,6 @@ namespace SpatialInvasor
             SpriteBatch = new SpriteBatch(Game.GraphicsDevice);
         }
 
-
-
         public void Kill()
         {
             Game.Components.Remove(this);
