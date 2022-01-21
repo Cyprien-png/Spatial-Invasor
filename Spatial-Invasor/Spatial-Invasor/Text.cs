@@ -8,18 +8,20 @@ using System.Diagnostics;
 
 namespace SpatialInvasor
 {
-    public abstract class Text : DrawableGameComponent
+    public abstract class Text
     {
         protected string DrawingText;
         public Vector2 Position;
+        /*
         protected SpriteFont font;
         protected SpriteBatch SpriteBatch;
-
-        public Text(Game game, SpriteBatch spritebatch) : base(game)
+        */
+        public Text(string drawingText, Vector2 position)
         {
-            this.SpriteBatch = spritebatch;
+            this.DrawingText = drawingText;
+            this.Position = position;
         }
-
+        /*
         protected override void LoadContent()
         {
             font = Game.Content.Load<SpriteFont>("font");
@@ -32,12 +34,13 @@ namespace SpatialInvasor
             SpriteBatch.DrawString(font, DrawingText, Position, Color.White);
             SpriteBatch.End();
         }
+        */
     }
 
     public class Score : Text
     {
         public int Value;
-        public Score(Game game, SpriteBatch spritebatch, int value) : base(game, spritebatch)
+        public Score(string drawingText, Vector2 position, int value) : base(drawingText, position)
         {
             Value = value;
             DrawingText = "Score : " + Value;
@@ -48,17 +51,18 @@ namespace SpatialInvasor
         {
             Value += value;
         }
+        /*
         public override void Update(GameTime gameTime)
         {
             DrawingText = "Score : " + Value;
         }
-
+        */
     }
 
     public class Life : Text
     {
         public int Value;
-        public Life(Game game, SpriteBatch spritebatch, int value) : base(game, spritebatch)
+        public Life(string drawingText, Vector2 position, int value) : base(drawingText, position)
         {
             Value = value;
             DrawingText = "Vies : " + Value;
@@ -69,25 +73,27 @@ namespace SpatialInvasor
         {
             Value -= 1;
         }
-
+        /*
         public override void Update(GameTime gameTime)
         {
             DrawingText = "Vies : " + Value;
         }
+        */
     }
 
     public class MenuText : Text {
         public bool ISChoosen;
         private bool _wasChoosenLast;
-
+        private float size;
         private string _originalText;
 
-        public MenuText(Game game, SpriteBatch spritebatch, string originalText) : base(game, spritebatch)
+        public MenuText(string drawingText, Vector2 position) : base(drawingText, position)
         {
             _originalText = DrawingText;
-            Position = new Vector2(300, 430);
+            Position = position;
+            size = 0.6f;
         }
-
+       /*
         public override void Update(GameTime gameTime)
         {
             if (ISChoosen && !_wasChoosenLast)
@@ -101,5 +107,6 @@ namespace SpatialInvasor
             
             
         }
+       */
     }
 }

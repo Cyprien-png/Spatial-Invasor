@@ -19,7 +19,7 @@ namespace SpatialInvasor
         private List<Octopus> _octopus;
 
         public GameScene MainMenu;
-
+        public KeyboardState CurrentState, previousKeyboardState;
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -55,6 +55,8 @@ namespace SpatialInvasor
             _laserList = new List<LaserShot>() {
                 new LaserShot(this, player)
             };
+
+            CurrentState = Keyboard.GetState();
             
         }
 
@@ -94,6 +96,8 @@ namespace SpatialInvasor
                 bool isUsed = usedComponents.Contains(component);
                 ChangeComponentState(component, isUsed);
             }
+
+            
         }
 
 
@@ -194,13 +198,20 @@ namespace SpatialInvasor
             
         }
 
-        
+        public bool NewKey(Keys key)
+        {
+            return CurrentState.IsKeyDown(key) && previousKeyboardState.IsKeyUp(key);
+        }
+
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            previousKeyboardState = CurrentState;
+            CurrentState = Keyboard.GetState();
+            
 
             base.Update(gameTime);
         }
