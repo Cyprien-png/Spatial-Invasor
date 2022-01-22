@@ -29,16 +29,15 @@ namespace SpatialInvasor
             items = new List<MenuItem>();
             selectedItem = null;
 
-            //SpriteBatch = new SpriteBatch(game.GraphicsDevice);
         }
 
         public void AddItem(string text)
         {
-            // setting up the position according to the item's collection index
+            // Choisi la position du nouvel object par rapport à celui avant lui
             Vector2 p = new Vector2(position.X, position.Y + items.Count * 50.0f);
             MenuItem item = new MenuItem(text, p);
             items.Add(item);
-            // selecting the first item
+            // Choisi le premier objet qui est sélectionné
             if (selectedItem == null) {
                 selectedItem = item;
             }
@@ -49,18 +48,24 @@ namespace SpatialInvasor
         {
             int index = items.IndexOf(selectedItem);
             if (index < items.Count - 1)
+            {
                 selectedItem = items[index + 1];
-            else
+            }
+            else {
                 selectedItem = items[0];
+            }
         }
 
         public void SelectPrevious()
         {
             int index = items.IndexOf(selectedItem);
             if (index > 0)
+            {
                 selectedItem = items[index - 1];
-            else
+            }
+            else {
                 selectedItem = items[items.Count - 1];
+            }  
         }
 
         public override void Initialize()
@@ -83,9 +88,6 @@ namespace SpatialInvasor
             if (_mainGame.NewKey(Keys.Down)) {
                 SelectNext();
             }   
-
-
-
             base.Update(gameTime);
         }
 

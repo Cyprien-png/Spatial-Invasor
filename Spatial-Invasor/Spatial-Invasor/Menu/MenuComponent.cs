@@ -31,6 +31,11 @@ namespace SpatialInvasor
 
         public override void Update(GameTime gameTime)
         {
+            if (_mainGame.NewKey(Keys.Enter))
+            {
+                _mainGame.SwitchScene(_mainGame.MainMenu);
+            }
+                
             base.Update(gameTime);
         }
 

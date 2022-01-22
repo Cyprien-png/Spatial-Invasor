@@ -21,8 +21,9 @@ namespace SpatialInvasor
         public void AddComponent(GameComponent component)
         {
             _components.Add(component);
-            if (!_mainGame.Components.Contains(component))
+            if (!_mainGame.Components.Contains(component)) {
                 _mainGame.Components.Add(component);
+            }
         }
 
         public GameComponent[] ReturnComponents()

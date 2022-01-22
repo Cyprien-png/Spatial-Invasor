@@ -71,16 +71,17 @@ namespace SpatialInvasor
                 positionX += 150;
             }
 
-            CurrentState = Keyboard.GetState();
+            
 
             _laserList = new List<LaserShot>() {
                 new LaserShot(this, _player)
             };
+
+            CurrentState = Keyboard.GetState();
         }
 
         protected override void Initialize()
         {
-
             Components.Add(new Playfield(this));
             Components.Add(_player);
 
@@ -115,8 +116,9 @@ namespace SpatialInvasor
         private void ChangeComponentState(GameComponent component, bool enabled)
         {
             component.Enabled = enabled;
-            if (component is DrawableGameComponent)
+            if (component is DrawableGameComponent) {
                 ((DrawableGameComponent)component).Visible = enabled;
+            }    
         }
 
         public void SwitchScene(GameScene scene)
@@ -145,10 +147,6 @@ namespace SpatialInvasor
             {
                 Exit();
             }
-
-
-            previousKeyboardState = CurrentState;
-            CurrentState = Keyboard.GetState();
 
             if (_timeSinceLastSpawn + SPAWN_UFO_PERIOD <= gameTime.TotalGameTime.TotalMinutes)
             {
@@ -229,6 +227,11 @@ namespace SpatialInvasor
                     aliens.ChangeDirection(gameTime);
                 }
             }
+
+            previousKeyboardState = CurrentState;
+            CurrentState = Keyboard.GetState();
+
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
