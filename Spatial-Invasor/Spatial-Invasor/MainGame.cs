@@ -141,15 +141,17 @@ namespace SpatialInvasor
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) {
-              Exit();
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                Exit();
             }
 
 
             previousKeyboardState = CurrentState;
             CurrentState = Keyboard.GetState();
 
-            if (_timeSinceLastSpawn + SPAWN_UFO_PERIOD <= gameTime.TotalGameTime.TotalMinutes) {
+            if (_timeSinceLastSpawn + SPAWN_UFO_PERIOD <= gameTime.TotalGameTime.TotalMinutes)
+            {
                 _ufo = new UFO(this);
                 Components.Add(_ufo);
                 _timeSinceLastSpawn = gameTime.TotalGameTime.TotalMinutes;
@@ -227,6 +229,7 @@ namespace SpatialInvasor
                     aliens.ChangeDirection(gameTime);
                 }
             }
+        }
 
         protected override void Draw(GameTime gameTime)
         {
