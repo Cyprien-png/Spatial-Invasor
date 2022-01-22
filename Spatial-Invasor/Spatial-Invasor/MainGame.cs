@@ -94,7 +94,7 @@ namespace SpatialInvasor
 
             MenuComponent menu = new MenuComponent(this, menuItems);
 
-            MainMenu = new GameScene(this, menuItems, player);
+            MainMenu = new GameScene(this, menuItems);
             foreach (GameComponent component in Components)
             {
                 ChangeComponentState(component, false);
