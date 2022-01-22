@@ -1,39 +1,48 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+
+
 namespace SpatialInvasor
 {
-    class MenuItemsComponents : DrawableGameComponent
+    public class MenuItemsComponent : DrawableGameComponent
     {
         private MainGame _mainGame;
 
-        private List<MenuText> items;
-        public MenuText selectedItem;
+        private List<MenuItem> items;
+        public MenuItem selectedItem;
         private Vector2 position;
         private Color _itemColor;
         private Color _selectedItemColor;
 
-        public SpriteBatch SpriteBatch;
+        private Texture2D _menuTitle;
 
-        public MenuItemsComponents(MainGame game, Vector2 position) : base(game) {
+        public MenuItemsComponent(MainGame game, Vector2 position) : base(game) {
             this._mainGame = game;
             this.position = position;
-            items = new List<MenuText>();
+
+            _itemColor = Color.White;
+            _selectedItemColor = Color.Red;
+
+            items = new List<MenuItem>();
             selectedItem = null;
 
-            SpriteBatch = new SpriteBatch()
+            //SpriteBatch = new SpriteBatch(game.GraphicsDevice);
         }
 
         public void AddItem(string text)
         {
             // setting up the position according to the item's collection index
-            Vector2 p = new Vector2(position.X, position.Y + items.Count * 0.5f);
-            MenuText item = new MenuText(text, p);
+            Vector2 p = new Vector2(position.X, position.Y + items.Count * 50.0f);
+            MenuItem item = new MenuItem(text, p);
             items.Add(item);
             // selecting the first item
-            if (selectedItem == null)
+            if (selectedItem == null) {
                 selectedItem = item;
+            }
+                
         }
 
         public void SelectNext()
@@ -61,31 +70,38 @@ namespace SpatialInvasor
 
         protected override void LoadContent()
         {
+            _menuTitle = _mainGame.Content.Load<Texture2D>("titleScreen");
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
             // key pressing
-            if (_mainGame.NewKey(Keys.Up)) 
+            if (_mainGame.NewKey(Keys.Up)) {
                 SelectPrevious();
-            if (_mainGame.NewKey(Keys.Down))
+            }
+            if (_mainGame.NewKey(Keys.Down)) {
                 SelectNext();
+            }   
+
+
 
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.Begin();
+            _mainGame.SpriteBatch.Begin();
             foreach (MenuItem item in items)
             {
-                //Color color = itemColor;
-                if (item == selectedItem)
-                    color = selectedItemColor;
-                _mainGame.spriteBatch.TextWithShadowScaled(_mainGame.fontBlox, item.text, item.position, color, item.textSize);
+                Color color = _itemColor;
+                if (item == selectedItem) {
+                    color = _selectedItemColor;
+                }
+                _mainGame.SpriteBatch.DrawString(_mainGame.Font, item.Text, item.Position, color);
             }
-            _mainGame.spriteBatch.End();
+            _mainGame.SpriteBatch.Draw(_menuTitle, new Vector2(240, 20), Color.White);
+            _mainGame.SpriteBatch.End();
 
             base.Draw(gameTime);
         }

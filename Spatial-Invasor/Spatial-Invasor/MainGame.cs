@@ -9,7 +9,9 @@ namespace SpatialInvasor
 {
     public class MainGame : Game
     {
-        private GraphicsDeviceManager _graphics;
+        public GraphicsDeviceManager _graphics;
+        public SpriteBatch SpriteBatch;
+        public SpriteFont Font;
         List<Vector2> WallPositions;
         private Player player;
         private List<LaserShot> _laserList;
@@ -23,6 +25,8 @@ namespace SpatialInvasor
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
+            
+            
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
@@ -62,6 +66,7 @@ namespace SpatialInvasor
 
         protected override void Initialize()
         {
+            
             Components.Add(new Playfield(this));
             Components.Add(player);
 
@@ -70,7 +75,14 @@ namespace SpatialInvasor
             _octopus.ForEach(octopus => Components.Add(octopus));
             _walls.ForEach(wall => Components.Add(wall));
 
-            MainMenu = new GameScene(this, player);
+            MenuItemsComponent menuItems = new MenuItemsComponent(this, new Vector2(340, 200));
+            menuItems.AddItem("Jouer");
+            menuItems.AddItem("Scores");
+            menuItems.AddItem("Quitter");
+
+            MenuComponent menu = new MenuComponent(this, menuItems);
+
+            MainMenu = new GameScene(this, menuItems, player);
             foreach (GameComponent component in Components)
             {
                 ChangeComponentState(component, false);
@@ -79,6 +91,13 @@ namespace SpatialInvasor
             SwitchScene(MainMenu);
 
             base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
+            Font = Content.Load<SpriteFont>("font");
+            base.LoadContent();
         }
 
         private void ChangeComponentState(GameComponent component, bool enabled)
@@ -218,6 +237,7 @@ namespace SpatialInvasor
 
         protected override void Draw(GameTime gameTime)
         {
+            _graphics.GraphicsDevice.Clear(Color.Black);
             base.Draw(gameTime);
         }
     }
