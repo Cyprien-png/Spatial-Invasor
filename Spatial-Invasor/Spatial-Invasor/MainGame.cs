@@ -10,7 +10,8 @@ namespace SpatialInvasor
     public class MainGame : Game
     {
         private GraphicsDeviceManager _graphics;
-
+        public SpriteBatch SpriteBatch;
+        public SpriteFont Font;
 
         private Player _player;
         private List<LaserShot> _laserList;
@@ -23,9 +24,13 @@ namespace SpatialInvasor
         private int _maxScore;
 
 
+        public GameScene MainMenu;
+        public KeyboardState CurrentState, previousKeyboardState;
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
+
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             int positionX = 0;
@@ -66,34 +71,84 @@ namespace SpatialInvasor
                 positionX += 150;
             }
 
-            
+            CurrentState = Keyboard.GetState();
 
             _laserList = new List<LaserShot>() {
                 new LaserShot(this, _player)
-            };   
+            };
         }
 
         protected override void Initialize()
         {
+
             Components.Add(new Playfield(this));
             Components.Add(_player);
 
             _aliens.ForEach(alien => Components.Add(alien));
             _walls.ForEach(wall => Components.Add(wall));
 
+            MenuItemsComponent menuItems = new MenuItemsComponent(this, new Vector2(340, 200));
+            menuItems.AddItem("Jouer");
+            menuItems.AddItem("Scores");
+            menuItems.AddItem("Quitter");
+
+            MenuComponent menu = new MenuComponent(this, menuItems);
+
+            MainMenu = new GameScene(this, menuItems, player);
+            foreach (GameComponent component in Components)
+            {
+                ChangeComponentState(component, false);
+            }
+
+            SwitchScene(MainMenu);
+
             base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
+            Font = Content.Load<SpriteFont>("font");
+            base.LoadContent();
+        }
+
+        private void ChangeComponentState(GameComponent component, bool enabled)
+        {
+            component.Enabled = enabled;
+            if (component is DrawableGameComponent)
+                ((DrawableGameComponent)component).Visible = enabled;
+        }
+
+        public void SwitchScene(GameScene scene)
+        {
+            GameComponent[] usedComponents = scene.ReturnComponents();
+            foreach (GameComponent component in Components)
+            {
+                bool isUsed = usedComponents.Contains(component);
+                ChangeComponentState(component, isUsed);
+            }
+        }
+
+        public bool NewKey(Keys key)
+        {
+            return CurrentState.IsKeyDown(key) && previousKeyboardState.IsKeyUp(key);
         }
 
         public void addShot(LaserShot laserShot)
         {
             _laserList.Add(laserShot);
         }
-        
+
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) {
+              Exit();
+            }
+
+
+            previousKeyboardState = CurrentState;
+            CurrentState = Keyboard.GetState();
+
             if (_timeSinceLastSpawn + SPAWN_UFO_PERIOD <= gameTime.TotalGameTime.TotalMinutes) {
                 _ufo = new UFO(this);
                 Components.Add(_ufo);
@@ -173,12 +228,9 @@ namespace SpatialInvasor
                 }
             }
 
-
-            base.Update(gameTime);
-        }
-
         protected override void Draw(GameTime gameTime)
         {
+            _graphics.GraphicsDevice.Clear(Color.Black);
             base.Draw(gameTime);
         }
     }
