@@ -13,7 +13,7 @@ namespace SpatialInvasor
         private KeyboardState _currentState;
         private KeyboardState _previousState;
 
-        public Player(Game game) : base(game)
+        public Player(MainGame game) : base(game)
         {
             Speed = 250f;
 
@@ -67,6 +67,7 @@ namespace SpatialInvasor
             {
                 Position.X = Limits[0];
             }
+            ShootingSpeed = -400;
         }
 
         public override void Update(GameTime gameTime)
