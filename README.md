@@ -21,3 +21,8 @@ La classe "UFO", bien que dérivée de Alien, n'utilise que la fonction de score
 
 ### Spécificités
 
+![](https://github.com/Cyprien-png/Spatial-Invasor/blob/main/Spatial-Invasor/Spatial-Invasor/Content/Example_Composant.PNG)
+
+Comme précisé précédemment, afin d'éviter le surchargemment de code dans MainGame, nous avons opté pour l'utilisation des "DrawableGameComponent" afin de réduire l'affichage d'un objet à une courte ligne de code et le rendre unique en cas de besoins
+
+Il suffit donc simplement d'ajouter "Components.Add()" et de préciser dans les parenthèses la classe à afficher
