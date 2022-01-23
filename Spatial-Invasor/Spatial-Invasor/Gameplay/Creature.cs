@@ -14,6 +14,14 @@ namespace SpatialInvasor
         public int ShootingSpeed;
         // Une créature ne peut posséder plus d'un laser sur l'écran à la fois
         private LaserShot _shot;
+        MainGame _maingame;
+
+        public Creature(MainGame game) : base(game)
+        {
+            Limits = new float[2] { 40f, 750f };
+            ShootingSpeed = 250; //400 par défaut
+            _maingame = game;
+        }
 
         protected void Shoot() {
             if (IsPressingTrigger())
@@ -21,9 +29,9 @@ namespace SpatialInvasor
                 // Une créature ne peut tirer que si le précédent tir est terminé
                 if (!Game.Components.Contains(_shot))
                 {
-                    _shot = new LaserShot(Game, this);
-                    ((MainGame)Game).addShot(_shot);
-                    Game.Components.Add(_shot);
+                    _shot = new LaserShot(_maingame, this);
+                    _maingame.addShot(_shot);
+                    _maingame.GamePlay.AddComponent(_shot);
                 }
             }
         }
@@ -32,10 +40,7 @@ namespace SpatialInvasor
 
         // Le centre d'un élément peut être décalé graphiquement par rapport au centre de la sprite
         public abstract Vector2 GetCenterPosition();
-        public Creature(MainGame game) : base(game) {
-            Limits = new float[2] { 40f, 750f };
-            ShootingSpeed =250; //400 par défaut
-        }
+        
         // La façon de tirer change totalement entre le joueur et les aliens
         public abstract bool IsPressingTrigger();
     }
