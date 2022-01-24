@@ -10,14 +10,12 @@ namespace SpatialInvasor
     {
         private MainGame _mainGame;
 
-        private Texture2D SpriteSheet, DeathScreen;
+        private Texture2D SpriteSheet;
 
         private double _timeSinceLastSpawn = 0.0;
         private const double SPAWN_UFO_PERIOD = 1.0;
-        private int _maxScore;
-        private int positionX;
-
-        private bool justDied = false;
+        private int score = 0;
+        
 
         public GameplayComponent(MainGame game) : base(game)
         {
@@ -35,7 +33,7 @@ namespace SpatialInvasor
         protected override void LoadContent()
         {
             SpriteSheet = Game.Content.Load<Texture2D>("main-spritesheet");
-            DeathScreen = Game.Content.Load<Texture2D>("you_died");
+            
             base.LoadContent();
         }
 
@@ -62,6 +60,7 @@ namespace SpatialInvasor
                     {
                         laser.Kill();
                         alien.Kill();
+                        score += alien.GetScoreValue;
                         lasersToKill.Add(laser);
                         aliensToKill.Add(alien);
                     }
@@ -76,6 +75,7 @@ namespace SpatialInvasor
                         {
                             laser.Kill();
                             secondLaser.Kill();
+                            score += 10;
                             lasersToKill.Add(laser);
                             lasersToKill.Add(secondLaser);
                         }
@@ -99,13 +99,14 @@ namespace SpatialInvasor
                 {
                     laser.Kill();
                     _mainGame.Player.kill();
-                    _mainGame.EndingGame();
+                    _mainGame.EndingGame(score);
                     
                     
                 }
                 if (laser.Hitbox.Intersects(_mainGame.Ufo.Hitbox))
                 {
                     laser.Kill();
+                    score += _mainGame.Ufo.GetScoreValue;
                     _mainGame.Player.kill();
                 }
 
@@ -134,9 +135,6 @@ namespace SpatialInvasor
         public override void Draw(GameTime gameTime)
         {
             _mainGame.SpriteBatch.Begin();
-            if (justDied) {
-                _mainGame.SpriteBatch.Draw(DeathScreen, new Vector2(150, 150), Color.White);
-            }
             _mainGame.SpriteBatch.End();
             base.Draw(gameTime);
         }

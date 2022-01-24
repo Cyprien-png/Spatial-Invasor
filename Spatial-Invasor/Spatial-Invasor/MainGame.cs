@@ -20,9 +20,10 @@ namespace SpatialInvasor
         public UFO Ufo;
         private int positionX;
 
-        public GameScene MainMenu, GamePlay;
+        public GameScene MainMenu, GamePlay, DeadScreen;
         public KeyboardState CurrentState, previousKeyboardState;
 
+        bool IsWaiting;
         
         public MainGame()
         {
@@ -34,11 +35,13 @@ namespace SpatialInvasor
             CurrentState = Keyboard.GetState();
         }
 
-        public void EndingGame()
+        public void EndingGame(int score)
         {
+            DeadScreenComponent deadScreen = new DeadScreenComponent(this, score);
+            DeadScreen = new GameScene(this, deadScreen);
 
-            Components.Clear();
-            Initialize();
+            SwitchScene(DeadScreen);
+            IsWaiting = true;
         }
 
         private void ChangeComponentState(GameComponent component, bool enabled)
@@ -49,7 +52,7 @@ namespace SpatialInvasor
                 ((DrawableGameComponent)component).Visible = enabled;
             }
         }
-
+        // Permet de changer de scène en activant ou pas certains composants
         public void SwitchScene(GameScene scene)
         {
             GameComponent[] usedComponents = scene.ReturnComponents();
@@ -94,14 +97,16 @@ namespace SpatialInvasor
             LaserList = new List<LaserShot>();
 
             GameplayComponent gameplayComponent = new GameplayComponent(this);
+            
 
             //Scores ----------
-            Score score = new Score(0);
+            ScoresComponent scoreComponent = new ScoresComponent(this);
 
             // Les composants sont ajoutées en deux étapes :
             // 1. Les composants solo (player, ufo)
             // 2. Les composants en liste (walls, aliens, lasers) pendant la création des objets dans la liste.
             GamePlay = new GameScene(this, gameplayComponent, Player, Ufo);
+            
 
             positionX = 103;
             for (int i = 0; i < 15; i++)
@@ -158,12 +163,19 @@ namespace SpatialInvasor
                 Exit();
             }
 
-            foreach (Alien alien in Aliens) {
-                alien.Speed =  (500 * 50) / Aliens.Count;
-            }
 
             previousKeyboardState = CurrentState;
             CurrentState = Keyboard.GetState();
+
+            //Attends que le joueur appuye sur la touche entrée pour revenir au menu principal
+            if (IsWaiting) {
+                if (NewKey(Keys.Space)) {
+                    Components.Clear();
+                    Initialize();
+                    
+                    IsWaiting = false;
+                }
+            }
 
             base.Update(gameTime);
         }
