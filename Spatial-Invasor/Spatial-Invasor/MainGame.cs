@@ -78,7 +78,7 @@ namespace SpatialInvasor
         protected override void Initialize()
         {
             // Ajout des composants du menu --------------------------------------------
-            MenuItemsComponent menuItems = new MenuItemsComponent(this, new Vector2(340, 200));
+            MenuItemsComponent menuItems = new MenuItemsComponent(this, new Vector2(340, 250));
             menuItems.AddItem("Jouer");
             menuItems.AddItem("Scores");
             menuItems.AddItem("Quitter");
@@ -98,9 +98,6 @@ namespace SpatialInvasor
 
             GameplayComponent gameplayComponent = new GameplayComponent(this);
             
-
-            //Scores ----------
-            ScoresComponent scoreComponent = new ScoresComponent(this);
 
             // Les composants sont ajoutées en deux étapes :
             // 1. Les composants solo (player, ufo)

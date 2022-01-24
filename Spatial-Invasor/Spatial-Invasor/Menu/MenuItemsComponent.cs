@@ -105,7 +105,7 @@ namespace SpatialInvasor
                 }
                 _mainGame.SpriteBatch.DrawString(_mainGame.Font, item.Text, item.Position, color);
             }
-            _mainGame.SpriteBatch.Draw(_menuTitle, new Vector2(240, 20), Color.White);
+            _mainGame.SpriteBatch.Draw(_menuTitle, new Vector2(240, 60), Color.White);
             _mainGame.SpriteBatch.End();
 
             base.Draw(gameTime);
