@@ -13,112 +13,41 @@ namespace SpatialInvasor
         public SpriteBatch SpriteBatch;
         public SpriteFont Font;
 
-        private Player _player;
-        private List<LaserShot> _laserList;
-        private List<Wall> _walls;
-        private List<Alien> _aliens;
-        private UFO _ufo;
+        public Player Player;
+        public List<LaserShot> LaserList;
+        public List<Wall> Walls;
+        public List<Alien> Aliens;
+        public UFO Ufo;
+        private int positionX;
 
-        private double _timeSinceLastSpawn = 0.0;
-        private const double SPAWN_UFO_PERIOD = 1.0;
-        private int _maxScore;
-
-
-        public GameScene MainMenu;
+        public GameScene MainMenu, GamePlay;
         public KeyboardState CurrentState, previousKeyboardState;
+
+        
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
 
-
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            int positionX = 0;
-            _aliens = new List<Alien>();
-            _player = new Player(this);
-            _ufo = new UFO(this);
-
-
-            positionX = 103;
-            for (int i = 0; i < 15; i++)
-            {
-                Crab crab = new Crab(this, positionX, 100);
-                _aliens.Add(crab);
-                positionX += 35;
-            }
-
-            positionX = 106;
-            for (int i = 0; i < 18; i++)
-            {
-                Squid squid = new Squid(this, positionX, 130);
-                _aliens.Add(squid);
-                positionX += 29;
-            }
-
-            positionX = 101;
-            for (int i = 0; i < 14; i++)
-            {
-                Octopus octopus = new Octopus(this, positionX, 160);
-                _aliens.Add(octopus);
-                positionX += 38;
-            }
-
-            positionX = 75;
-            _walls = new List<Wall>();
-            for (int i = 0; i < 5; i++)
-            {
-                _walls.Add(new Wall(this, new Vector2(positionX, 350)));
-                positionX += 150;
-            }
-
-            
-
-            _laserList = new List<LaserShot>() {
-                new LaserShot(this, _player)
-            };
 
             CurrentState = Keyboard.GetState();
         }
 
-        protected override void Initialize()
+        public void EndingGame()
         {
-            Components.Add(new Playfield(this));
-            Components.Add(_player);
 
-            _aliens.ForEach(alien => Components.Add(alien));
-            _walls.ForEach(wall => Components.Add(wall));
-
-            MenuItemsComponent menuItems = new MenuItemsComponent(this, new Vector2(340, 200));
-            menuItems.AddItem("Jouer");
-            menuItems.AddItem("Scores");
-            menuItems.AddItem("Quitter");
-
-            MenuComponent menu = new MenuComponent(this, menuItems);
-
-            MainMenu = new GameScene(this, menuItems);
-            foreach (GameComponent component in Components)
-            {
-                ChangeComponentState(component, false);
-            }
-
-            SwitchScene(MainMenu);
-
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            SpriteBatch = new SpriteBatch(GraphicsDevice);
-            Font = Content.Load<SpriteFont>("font");
-            base.LoadContent();
+            Components.Clear();
+            Initialize();
         }
 
         private void ChangeComponentState(GameComponent component, bool enabled)
         {
             component.Enabled = enabled;
-            if (component is DrawableGameComponent) {
+            if (component is DrawableGameComponent)
+            {
                 ((DrawableGameComponent)component).Visible = enabled;
-            }    
+            }
         }
 
         public void SwitchScene(GameScene scene)
@@ -138,7 +67,88 @@ namespace SpatialInvasor
 
         public void addShot(LaserShot laserShot)
         {
-            _laserList.Add(laserShot);
+            LaserList.Add(laserShot);
+        }
+
+        
+
+        protected override void Initialize()
+        {
+            // Ajout des composants du menu --------------------------------------------
+            MenuItemsComponent menuItems = new MenuItemsComponent(this, new Vector2(340, 200));
+            menuItems.AddItem("Jouer");
+            menuItems.AddItem("Scores");
+            menuItems.AddItem("Quitter");
+
+            MainMenu = new GameScene(this, menuItems);
+            foreach (GameComponent component in Components)
+            {
+                ChangeComponentState(component, false);
+            }
+
+            // Ajout des composants du GamePlay ---------------------------------------------
+            Aliens = new List<Alien>();
+            Walls = new List<Wall>();
+            Player = new Player(this);
+            Ufo = new UFO(this);
+            LaserList = new List<LaserShot>();
+
+            GameplayComponent gameplayComponent = new GameplayComponent(this);
+
+            //Scores ----------
+            Score score = new Score(0);
+
+            // Les composants sont ajoutées en deux étapes :
+            // 1. Les composants solo (player, ufo)
+            // 2. Les composants en liste (walls, aliens, lasers) pendant la création des objets dans la liste.
+            GamePlay = new GameScene(this, gameplayComponent, Player, Ufo);
+
+            positionX = 103;
+            for (int i = 0; i < 15; i++)
+            {
+                Crab crab = new Crab(this, positionX, 100);
+                Aliens.Add(crab);
+                GamePlay.AddComponent(crab);
+                positionX += 35;
+            }
+
+            positionX = 106;
+            for (int i = 0; i < 18; i++)
+            {
+                Squid squid = new Squid(this, positionX, 130);
+                Aliens.Add(squid);
+                GamePlay.AddComponent(squid);
+                positionX += 29;
+            }
+
+            positionX = 101;
+            for (int i = 0; i < 14; i++)
+            {
+                Octopus octopus = new Octopus(this, positionX, 160);
+                Aliens.Add(octopus);
+                GamePlay.AddComponent(octopus);
+                positionX += 38;
+            }
+
+            positionX = 75;
+            for (int i = 0; i < 5; i++)
+            {
+                Wall wall_E = new Wall(this, new Vector2(positionX, 350));
+                Walls.Add(wall_E);
+                GamePlay.AddComponent(wall_E);
+                positionX += 150;
+            }
+
+            // Choix de la première scène
+            SwitchScene(MainMenu);
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
+            Font = Content.Load<SpriteFont>("font");
+            base.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
@@ -148,84 +158,8 @@ namespace SpatialInvasor
                 Exit();
             }
 
-            if (_timeSinceLastSpawn + SPAWN_UFO_PERIOD <= gameTime.TotalGameTime.TotalMinutes)
-            {
-                _ufo = new UFO(this);
-                Components.Add(_ufo);
-                _timeSinceLastSpawn = gameTime.TotalGameTime.TotalMinutes;
-            }
-
-            List<LaserShot> lasersToKill = new List<LaserShot>();
-            List<Wall> wallsToKill = new List<Wall>();
-            List<Alien> aliensToKill = new List<Alien>();
-            bool isTouchingLimit = false;
-
-            foreach (LaserShot laser in _laserList)
-            {
-                foreach (Alien alien in _aliens)
-                {
-                    if (alien.Hitbox.Intersects(laser.Hitbox) && laser.Shooter == _player)
-                    {
-                        laser.Kill();
-                        alien.Kill();
-                        lasersToKill.Add(laser);
-                        aliensToKill.Add(alien);
-                    }
-
-                    if (alien.TouchLimit(gameTime)) { isTouchingLimit = true; }
-
-
-                }
-
-                foreach (LaserShot secondLaser in _laserList)
-                {
-                    if (laser != secondLaser)
-                    {
-                        if (laser.Hitbox.Intersects(secondLaser.Hitbox))
-                        {
-                            laser.Kill();
-                            secondLaser.Kill();
-                            lasersToKill.Add(laser);
-                            lasersToKill.Add(secondLaser);
-                        }
-                    }
-                }
-
-                foreach (Wall wall in _walls)
-                {
-                    if (wall.Hitbox.Intersects(laser.Hitbox))
-                    {
-                        laser.Kill();
-                        wall.Hit();
-                        lasersToKill.Add(laser);
-                    }
-                    if (wall.Life == 0)
-                        wallsToKill.Add(wall);
-                }
-
-
-                if (laser.Hitbox.Intersects(_player.Hitbox) && laser.Shooter != _player)
-                {
-                    laser.Kill();
-                    _player.kill();
-                }
-
-                _aliens = _aliens.Except(aliensToKill).ToList();
-                _laserList = _laserList.Except(lasersToKill).ToList();
-                _walls = _walls.Except(wallsToKill).ToList();
-            }
-
-            foreach (Alien alien in _aliens)
-            {
-                if (alien.TouchLimit(gameTime)) { isTouchingLimit = true; }
-            }
-
-            if (isTouchingLimit)
-            {
-                foreach (Alien aliens in _aliens)
-                {
-                    aliens.ChangeDirection(gameTime);
-                }
+            foreach (Alien alien in Aliens) {
+                alien.Speed =  (500 * 50) / Aliens.Count;
             }
 
             previousKeyboardState = CurrentState;

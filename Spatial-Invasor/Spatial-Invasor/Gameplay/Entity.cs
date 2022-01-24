@@ -12,7 +12,7 @@ namespace SpatialInvasor
         // Ces attributs sont partagés par toutes les entitées
         public List<Rectangle> SheetPositions;
         public Rectangle CurrentSheetPosition;
-        protected float Speed;
+        public float Speed;
         protected Vector2 Position;
         public int Life;
 

@@ -20,7 +20,7 @@ namespace SpatialInvasor
         }
 
         private bool isInBounds() {
-            return (Position.Y >= 0 && Position.Y <= 420);
+            return (Position.Y >= 0 && Position.Y <= 450);
         }
 
         public override void Update(GameTime gameTime)
