@@ -9,7 +9,7 @@ namespace SpatialInvasor
     {
         public UFO(MainGame game) : base(game)
         {
-            ScoreValue = 50;
+            ScoreValue = 100;
             Position = new Vector2(Limits[0] + 10, 70);
             Speed = 150f;
             SheetPositions = new List<Rectangle>()

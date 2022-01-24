@@ -10,7 +10,7 @@ namespace SpatialInvasor
         
         public Wall(Game game, Vector2 Coordinate) : base(game)
         {
-            Life = 4;
+            Life = 16;
             Position = Coordinate;
             SheetPositions = new List<Rectangle>()
             {
@@ -29,16 +29,16 @@ namespace SpatialInvasor
                 
                 switch (Life)
                 {
-                    case 4:
+                    case 16:
                         CurrentSheetPosition = SheetPositions[0];
                         break;
-                    case 3 :
+                    case 12 :
                         CurrentSheetPosition = SheetPositions[1];
                         break;
-                    case 2 :
+                    case 8 :
                         CurrentSheetPosition = SheetPositions[2];
                         break;
-                     case 1 :
+                     case 4 :
                         CurrentSheetPosition = SheetPositions[3];
                         break;
                     case 0 :

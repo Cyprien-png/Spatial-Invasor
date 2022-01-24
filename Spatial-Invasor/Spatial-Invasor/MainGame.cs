@@ -80,7 +80,6 @@ namespace SpatialInvasor
             // Ajout des composants du menu --------------------------------------------
             MenuItemsComponent menuItems = new MenuItemsComponent(this, new Vector2(340, 250));
             menuItems.AddItem("Jouer");
-            menuItems.AddItem("Scores");
             menuItems.AddItem("Quitter");
 
             MainMenu = new GameScene(this, menuItems);
@@ -172,6 +171,10 @@ namespace SpatialInvasor
                     
                     IsWaiting = false;
                 }
+            }
+
+            foreach (Alien alien in Aliens) {
+                alien.Speed += 0.1f;
             }
 
             base.Update(gameTime);

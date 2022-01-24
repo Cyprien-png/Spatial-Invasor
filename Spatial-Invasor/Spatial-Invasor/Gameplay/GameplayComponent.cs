@@ -103,8 +103,8 @@ namespace SpatialInvasor
                 if (laser.Hitbox.Intersects(_mainGame.Ufo.Hitbox))
                 {
                     laser.Kill();
+                    _mainGame.Ufo.Kill();
                     score += _mainGame.Ufo.GetScoreValue;
-                    _mainGame.Player.kill();
                 }
 
 

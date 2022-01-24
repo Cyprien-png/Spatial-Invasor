@@ -87,8 +87,12 @@ namespace SpatialInvasor
                 SelectNext();
             }
             if (_mainGame.NewKey(Keys.Enter)) {
-                if (selectedItem == items[0]) {
+                if (selectedItem == items[0])
+                {
                     _mainGame.SwitchScene(_mainGame.GamePlay);
+                }
+                else if (selectedItem == items[1]) {
+                    _mainGame.Exit();
                 }
             }
             base.Update(gameTime);
