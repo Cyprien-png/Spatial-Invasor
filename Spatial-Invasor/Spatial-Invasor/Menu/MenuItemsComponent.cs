@@ -80,14 +80,18 @@ namespace SpatialInvasor
         }
 
         public override void Update(GameTime gameTime)
-        {
-            // key pressing
+        {  
             if (_mainGame.NewKey(Keys.Up)) {
                 SelectPrevious();
             }
             if (_mainGame.NewKey(Keys.Down)) {
                 SelectNext();
-            }   
+            }
+            if (_mainGame.NewKey(Keys.Enter)) {
+                if (selectedItem == items[0]) {
+                    _mainGame.SwitchScene(_mainGame.GamePlay);
+                }
+            }
             base.Update(gameTime);
         }
 
