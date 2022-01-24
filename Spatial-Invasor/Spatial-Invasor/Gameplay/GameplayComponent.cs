@@ -10,19 +10,23 @@ namespace SpatialInvasor
     {
         private MainGame _mainGame;
 
-        protected Texture2D SpriteSheet;
+        private Texture2D SpriteSheet, DeathScreen;
 
         private double _timeSinceLastSpawn = 0.0;
         private const double SPAWN_UFO_PERIOD = 1.0;
         private int _maxScore;
         private int positionX;
 
+        private bool justDied = false;
+
         public GameplayComponent(MainGame game) : base(game)
         {
             _mainGame = game;
 
         }
-            
+
+        
+
         public override void Initialize()
         {
             base.Initialize();
@@ -31,11 +35,13 @@ namespace SpatialInvasor
         protected override void LoadContent()
         {
             SpriteSheet = Game.Content.Load<Texture2D>("main-spritesheet");
+            DeathScreen = Game.Content.Load<Texture2D>("you_died");
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
+
             if (_timeSinceLastSpawn + SPAWN_UFO_PERIOD <= gameTime.TotalGameTime.TotalMinutes)
             {
                 _mainGame.Ufo = new UFO(_mainGame);
@@ -93,7 +99,16 @@ namespace SpatialInvasor
                 {
                     laser.Kill();
                     _mainGame.Player.kill();
+                    _mainGame.EndingGame();
+                    
+                    
                 }
+                if (laser.Hitbox.Intersects(_mainGame.Ufo.Hitbox))
+                {
+                    laser.Kill();
+                    _mainGame.Player.kill();
+                }
+
 
                 _mainGame.Aliens = _mainGame.Aliens.Except(aliensToKill).ToList();
                 _mainGame.LaserList = _mainGame.LaserList.Except(lasersToKill).ToList();
@@ -112,12 +127,17 @@ namespace SpatialInvasor
                     aliens.ChangeDirection(gameTime);
                 }
             }
-
+            
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
+            _mainGame.SpriteBatch.Begin();
+            if (justDied) {
+                _mainGame.SpriteBatch.Draw(DeathScreen, new Vector2(150, 150), Color.White);
+            }
+            _mainGame.SpriteBatch.End();
             base.Draw(gameTime);
         }
     }

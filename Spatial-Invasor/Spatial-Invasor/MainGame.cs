@@ -22,6 +22,8 @@ namespace SpatialInvasor
 
         public GameScene MainMenu, GamePlay;
         public KeyboardState CurrentState, previousKeyboardState;
+
+        
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -30,6 +32,13 @@ namespace SpatialInvasor
             IsMouseVisible = true;
 
             CurrentState = Keyboard.GetState();
+        }
+
+        public void EndingGame()
+        {
+
+            Components.Clear();
+            Initialize();
         }
 
         private void ChangeComponentState(GameComponent component, bool enabled)
@@ -61,6 +70,8 @@ namespace SpatialInvasor
             LaserList.Add(laserShot);
         }
 
+        
+
         protected override void Initialize()
         {
             // Ajout des composants du menu --------------------------------------------
@@ -83,6 +94,10 @@ namespace SpatialInvasor
             LaserList = new List<LaserShot>();
 
             GameplayComponent gameplayComponent = new GameplayComponent(this);
+
+            //Scores ----------
+            Score score = new Score(0);
+
             // Les composants sont ajoutées en deux étapes :
             // 1. Les composants solo (player, ufo)
             // 2. Les composants en liste (walls, aliens, lasers) pendant la création des objets dans la liste.
@@ -141,6 +156,10 @@ namespace SpatialInvasor
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 Exit();
+            }
+
+            foreach (Alien alien in Aliens) {
+                alien.Speed =  (500 * 50) / Aliens.Count;
             }
 
             previousKeyboardState = CurrentState;
