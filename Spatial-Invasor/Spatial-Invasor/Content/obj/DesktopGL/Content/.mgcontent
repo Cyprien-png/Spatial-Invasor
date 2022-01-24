@@ -7,8 +7,10 @@
     <File>C:/Users/benja/Documents/GitHub/Spatial-Invasor/Spatial-Invasor/Spatial-Invasor/Content/main-spritesheet.png</File>
     <File>C:/Users/benja/Documents/GitHub/Spatial-Invasor/Spatial-Invasor/Spatial-Invasor/Content/titleScreen.png</File>
     <File>C:/Users/benja/Documents/GitHub/Spatial-Invasor/Spatial-Invasor/Spatial-Invasor/Content/you_died.png</File>
+    <File>C:/Users/benja/Documents/GitHub/Spatial-Invasor/Spatial-Invasor/Spatial-Invasor/Content/you_won.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

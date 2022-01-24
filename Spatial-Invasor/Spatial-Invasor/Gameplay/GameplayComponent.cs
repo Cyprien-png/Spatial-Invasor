@@ -62,6 +62,8 @@ namespace SpatialInvasor
                         aliensToKill.Add(alien);
                     }
                     if (alien.TouchLimit(gameTime)) { isTouchingLimit = true; }
+
+                    if (alien.GetPosition.Y >= 350) { _mainGame.EndingGameDeath(score); }
                 }
 
                 foreach (LaserShot secondLaser in _mainGame.LaserList)
@@ -96,9 +98,7 @@ namespace SpatialInvasor
                 {
                     laser.Kill();
                     _mainGame.Player.kill();
-                    _mainGame.EndingGame(score);
-                    
-                    
+                    _mainGame.EndingGameDeath(score);
                 }
                 if (laser.Hitbox.Intersects(_mainGame.Ufo.Hitbox))
                 {
@@ -108,7 +108,14 @@ namespace SpatialInvasor
                 }
 
 
-                _mainGame.Aliens = _mainGame.Aliens.Except(aliensToKill).ToList();
+
+                if (_mainGame.Aliens.Except(aliensToKill).ToList().Count() == 0)
+                {
+                    _mainGame.EndingGameWin(score);
+                }
+                else {
+                    _mainGame.Aliens = _mainGame.Aliens.Except(aliensToKill).ToList();
+                }
                 _mainGame.LaserList = _mainGame.LaserList.Except(lasersToKill).ToList();
                 _mainGame.Walls = _mainGame.Walls.Except(wallsToKill).ToList();
             }

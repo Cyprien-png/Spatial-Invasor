@@ -20,7 +20,7 @@ namespace SpatialInvasor
         public UFO Ufo;
         private int positionX;
 
-        public GameScene MainMenu, GamePlay, DeadScreen;
+        public GameScene MainMenu, GamePlay, DeadScreen, WinScreen;
         public KeyboardState CurrentState, previousKeyboardState;
 
         bool IsWaiting;
@@ -35,12 +35,20 @@ namespace SpatialInvasor
             CurrentState = Keyboard.GetState();
         }
 
-        public void EndingGame(int score)
+        public void EndingGameDeath(int score)
         {
-            DeadScreenComponent deadScreen = new DeadScreenComponent(this, score);
+            EndGameComponent deadScreen = new EndGameComponent(this, score, false);
             DeadScreen = new GameScene(this, deadScreen);
 
             SwitchScene(DeadScreen);
+            IsWaiting = true;
+        }
+
+        public void EndingGameWin(int score) {
+            EndGameComponent winScreen = new EndGameComponent(this, score, true);
+            WinScreen = new GameScene(this, winScreen);
+
+            SwitchScene(WinScreen);
             IsWaiting = true;
         }
 
@@ -112,7 +120,7 @@ namespace SpatialInvasor
                 GamePlay.AddComponent(crab);
                 positionX += 35;
             }
-
+            
             positionX = 106;
             for (int i = 0; i < 18; i++)
             {
@@ -130,7 +138,7 @@ namespace SpatialInvasor
                 GamePlay.AddComponent(octopus);
                 positionX += 38;
             }
-
+            
             positionX = 75;
             for (int i = 0; i < 5; i++)
             {
@@ -172,7 +180,7 @@ namespace SpatialInvasor
                     IsWaiting = false;
                 }
             }
-
+            // Augmentee la vitesse des aliens avec le temps
             foreach (Alien alien in Aliens) {
                 alien.Speed += 0.1f;
             }

@@ -11,12 +11,16 @@ namespace SpatialInvasor
 
         public Alien(MainGame game) : base(game)
         {
-            Speed = 1200f;
+            Speed = 1100f;
         }
 
         public override bool IsPressingTrigger()
         {
-            return new Random().Next(300) == 0;
+            return new Random().Next(400) == 0;
+        }
+
+        public Vector2 GetPosition {
+            get => Position;
         }
 
         public bool TouchLimit(GameTime gameTime)
