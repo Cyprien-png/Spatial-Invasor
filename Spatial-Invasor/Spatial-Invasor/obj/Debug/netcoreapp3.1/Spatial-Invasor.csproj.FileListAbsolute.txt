@@ -78,7 +78,6 @@ C:\Users\Cyprien.JAQUIER\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatia
 C:\Users\Cyprien.JAQUIER\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-Invasor\obj\Debug\netcoreapp3.1\Spatial-Invasor.dll
 C:\Users\Cyprien.JAQUIER\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-Invasor\obj\Debug\netcoreapp3.1\Spatial-Invasor.pdb
 C:\Users\Cyprien.JAQUIER\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-Invasor\obj\Debug\netcoreapp3.1\Spatial-Invasor.genruntimeconfig.cache
-C:\Users\benja\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-Invasor\obj\Debug\netcoreapp3.1\Spatial-Invasor.csprojAssemblyReference.cache
 C:\Users\benja\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-Invasor\obj\Debug\netcoreapp3.1\Spatial-Invasor.AssemblyInfoInputs.cache
 C:\Users\benja\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-Invasor\obj\Debug\netcoreapp3.1\Spatial-Invasor.AssemblyInfo.cs
 C:\Users\benja\Documents\GitHub\Spatial-Invasor\Spatial-Invasor\Spatial-Invasor\obj\Debug\netcoreapp3.1\Spatial-Invasor.csproj.CoreCompileInputs.cache
